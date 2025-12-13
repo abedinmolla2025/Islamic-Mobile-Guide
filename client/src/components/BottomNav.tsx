@@ -13,27 +13,38 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border/40 pb-safe pt-2 px-6 shadow-[0_-4px_10px_rgba(0,0,0,0.03)] z-50">
-      <div className="flex justify-between items-center max-w-md mx-auto">
-        {navItems.map((item) => {
-          const isActive = location === item.path;
-          return (
-            <Link key={item.path} href={item.path}>
-              <div className={cn(
-                "flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 w-16 cursor-pointer",
-                isActive ? "text-primary" : "text-muted-foreground hover:text-primary/70"
-              )}>
-                <div className={cn(
-                  "p-1.5 rounded-full transition-all duration-300",
-                  isActive && "bg-primary/10"
-                )}>
-                  <item.icon className={cn("w-6 h-6", isActive && "fill-current")} strokeWidth={isActive ? 2.5 : 2} />
-                </div>
-                <span className="text-[10px] font-medium tracking-wide">{item.label}</span>
-              </div>
-            </Link>
-          );
-        })}
+    <div className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-safe">
+      <div className="max-w-md mx-auto">
+        <div className="glass rounded-2xl shadow-premium border border-white/50 px-2 py-2 mb-2">
+          <div className="flex justify-around items-center">
+            {navItems.map((item) => {
+              const isActive = location === item.path;
+              return (
+                <Link key={item.path} href={item.path}>
+                  <div className={cn(
+                    "flex flex-col items-center gap-1 py-2 px-4 rounded-xl transition-all duration-300 cursor-pointer relative",
+                    isActive ? "text-primary" : "text-muted-foreground hover:text-primary/70"
+                  )}>
+                    {isActive && (
+                      <div className="absolute inset-0 bg-primary/10 rounded-xl" />
+                    )}
+                    <item.icon 
+                      className={cn(
+                        "w-5 h-5 relative z-10 transition-transform duration-200",
+                        isActive && "scale-110"
+                      )} 
+                      strokeWidth={isActive ? 2.5 : 2} 
+                    />
+                    <span className={cn(
+                      "text-[10px] font-semibold tracking-wide relative z-10",
+                      isActive && "text-primary"
+                    )}>{item.label}</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
