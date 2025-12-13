@@ -8,6 +8,8 @@ import Home from "@/pages/home";
 import Quran from "@/pages/quran";
 import Tools from "@/pages/tools";
 import Duas from "@/pages/duas";
+import Tasbih from "@/pages/tasbih";
+import Qibla from "@/pages/qibla";
 
 function Router() {
   return (
@@ -16,6 +18,8 @@ function Router() {
       <Route path="/quran" component={Quran} />
       <Route path="/duas" component={Duas} />
       <Route path="/tools" component={Tools} />
+      <Route path="/tasbih" component={Tasbih} />
+      <Route path="/qibla" component={Qibla} />
       <Route component={NotFound} />
     </Switch>
   );
