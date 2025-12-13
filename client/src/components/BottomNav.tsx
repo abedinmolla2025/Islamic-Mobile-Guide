@@ -1,4 +1,4 @@
-import { Home, BookOpen, Compass, Settings } from "lucide-react";
+import { Home, BookOpen, Compass, HeartHandshake } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ export default function BottomNav() {
   const navItems = [
     { icon: Home, label: "Home", path: "/" },
     { icon: BookOpen, label: "Quran", path: "/quran" },
+    { icon: HeartHandshake, label: "Dua", path: "/duas" },
     { icon: Compass, label: "Tools", path: "/tools" },
   ];
 
@@ -19,7 +20,7 @@ export default function BottomNav() {
           return (
             <Link key={item.path} href={item.path}>
               <div className={cn(
-                "flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 w-16",
+                "flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 w-16 cursor-pointer",
                 isActive ? "text-primary" : "text-muted-foreground hover:text-primary/70"
               )}>
                 <div className={cn(

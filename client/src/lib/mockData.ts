@@ -31,3 +31,40 @@ export const hijriDate = {
   year: "1446 AH",
   gregorian: "Friday, 14 March 2025"
 };
+
+export const duas = [
+  {
+    category: "Morning & Evening",
+    items: [
+      { title: "Morning Dua", arabic: "اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا", translation: "O Allah, by You we enter the morning and by You we enter the evening.", reference: "Tirmidhi" },
+      { title: "Evening Dua", arabic: "اللّهُـمَّ بِكَ أَمْسَـينا وَبِكَ أَصْـبَحْنا", translation: "O Allah, by You we enter the evening and by You we enter the morning.", reference: "Tirmidhi" }
+    ]
+  },
+  {
+    category: "Daily Life",
+    items: [
+      { title: "Before Eating", arabic: "بِسْمِ اللَّهِ", translation: "In the name of Allah.", reference: "Bukhari" },
+      { title: "After Eating", arabic: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ", translation: "All praise is due to Allah who fed us, gave us drink, and made us Muslims.", reference: "Tirmidhi" },
+      { title: "Leaving Home", arabic: "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ", translation: "In the name of Allah, I place my trust in Allah.", reference: "Abu Dawud" }
+    ]
+  },
+  {
+    category: "Travel",
+    items: [
+      { title: "For Travel", arabic: "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ", translation: "Glory be to Him Who has subjected this to us, and we could not have otherwise subdued it.", reference: "Quran 43:13" }
+    ]
+  }
+];
+
+export const namesOfAllah = [
+  { name: "Allah", meaning: "The God", arabic: "الله" },
+  { name: "Ar-Rahman", meaning: "The Most Gracious", arabic: "الرحمن" },
+  { name: "Ar-Rahim", meaning: "The Most Merciful", arabic: "الرحيم" },
+  { name: "Al-Malik", meaning: "The King", arabic: "الملك" },
+  { name: "Al-Quddus", meaning: "The Most Holy", arabic: "القدوس" },
+  { name: "As-Salam", meaning: "The Source of Peace", arabic: "السلام" },
+  { name: "Al-Mu'min", meaning: "The Granter of Security", arabic: "المؤمن" },
+  { name: "Al-Muhaimin", meaning: "The Guardian", arabic: "المهيمن" },
+  { name: "Al-Aziz", meaning: "The Almighty", arabic: "العزيز" },
+  { name: "Al-Jabbar", meaning: "The Compeller", arabic: "الجبار" },
+];
