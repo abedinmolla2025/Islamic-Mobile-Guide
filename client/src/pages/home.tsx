@@ -6,7 +6,7 @@ import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
-import prayingManImg from "@assets/generated_images/muslim_man_praying_on_mat.png";
+import prayingManImg from "@assets/praying_man.png";
 
 const features = [
   { icon: "📖", label: "Quran", path: "/quran", color: "bg-emerald-500" },
@@ -144,7 +144,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex-shrink-0">
-                      <img src={prayingManImg} alt="Praying man" className="w-24 h-24 object-contain" />
+                      <img src={prayingManImg} alt="Praying man" className="w-24 h-24 object-contain transform -scale-x-100" />
                     </div>
                   </div>
                 </div>
