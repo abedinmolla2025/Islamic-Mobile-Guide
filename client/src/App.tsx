@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Quran from "@/pages/quran";
+import SurahPage from "@/pages/surah";
 import Tools from "@/pages/tools";
 import Duas from "@/pages/duas";
 import Tasbih from "@/pages/tasbih";
@@ -16,6 +17,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/quran" component={Quran} />
+      <Route path="/surah/:number" component={SurahPage} />
       <Route path="/duas" component={Duas} />
       <Route path="/tools" component={Tools} />
       <Route path="/tasbih" component={Tasbih} />
