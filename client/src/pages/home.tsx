@@ -6,7 +6,7 @@ import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
-import prayingManImg from "@assets/praying_man.png";
+import prayingManImg from "@assets/generated_images/muslim_man_praying_on_mat.png";
 
 const features = [
   { icon: "📖", label: "Quran", path: "/quran", color: "bg-emerald-500" },
