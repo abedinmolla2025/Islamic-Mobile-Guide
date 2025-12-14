@@ -77,7 +77,7 @@ export default function Qibla() {
   };
 
   const compassRotation = qiblaDirection !== null ? qiblaDirection - deviceHeading : 0;
-  const isAligned = Math.abs(compassRotation % 360) < 10 || Math.abs(compassRotation % 360) > 350;
+  const isAligned = qiblaDirection !== null && (Math.abs(compassRotation % 360) < 10 || Math.abs(compassRotation % 360) > 350);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0d4a3a] via-[#0f5245] to-[#0a3d30] pb-24">
