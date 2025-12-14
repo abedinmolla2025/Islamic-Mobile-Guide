@@ -144,7 +144,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex-shrink-0">
-                      <img src={prayingManImg} alt="Praying man" className="w-24 h-24 object-contain transform -scale-x-100" />
+                      <img src={prayingManImg} alt="Praying man" className="w-24 h-24 object-contain" />
                     </div>
                   </div>
                 </div>
