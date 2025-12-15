@@ -181,10 +181,7 @@ export default function Quran() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span 
-                        className="text-xl text-[#D4AF37]/70" 
-                        style={{ fontFamily: "'Amiri', serif" }}
-                      >
+                      <span className="text-2xl text-[#D4AF37]/80 font-arabic">
                         {surah.name}
                       </span>
                       <ChevronRight className="w-4 h-4 text-white/30 group-hover:text-[#D4AF37] transition-colors" />

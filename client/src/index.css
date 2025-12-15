@@ -35,7 +35,13 @@
   --color-chart-5: hsl(var(--chart-5));
   
   --font-sans: 'Outfit', sans-serif;
-  --font-serif: 'Amiri', serif;
+  --font-serif: 'Lora', 'Amiri', serif;
+  --font-arabic: 'Scheherazade New', 'Amiri Quran', 'Amiri', serif;
+  --font-bengali: 'Noto Sans Bengali', 'Outfit', sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', 'Scheherazade New', serif;
+  --font-hindi: 'Noto Sans Devanagari', 'Outfit', sans-serif;
+  --font-tamil: 'Noto Sans Tamil', 'Outfit', sans-serif;
+  --font-malayalam: 'Noto Sans Malayalam', 'Outfit', sans-serif;
   --radius: 1rem;
 }
 
@@ -167,5 +173,33 @@
 
   .pb-safe {
     padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+  }
+
+  .font-arabic {
+    font-family: 'Scheherazade New', 'Amiri Quran', 'Amiri', serif;
+  }
+  
+  .font-bengali {
+    font-family: 'Noto Sans Bengali', 'Outfit', sans-serif;
+  }
+  
+  .font-urdu {
+    font-family: 'Noto Nastaliq Urdu', 'Scheherazade New', serif;
+  }
+  
+  .font-hindi {
+    font-family: 'Noto Sans Devanagari', 'Outfit', sans-serif;
+  }
+  
+  .font-tamil {
+    font-family: 'Noto Sans Tamil', 'Outfit', sans-serif;
+  }
+  
+  .font-malayalam {
+    font-family: 'Noto Sans Malayalam', 'Outfit', sans-serif;
+  }
+  
+  .font-translation {
+    font-family: 'Lora', 'Outfit', serif;
   }
 }

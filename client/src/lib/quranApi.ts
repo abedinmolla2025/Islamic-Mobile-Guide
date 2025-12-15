@@ -53,6 +53,23 @@ export const AVAILABLE_TRANSLATIONS: TranslationEdition[] = [
   { identifier: "ta.tamil", language: "ta", name: "ஜான் ட்ரஸ்ட்", englishName: "Tamil", direction: "ltr" },
 ];
 
+export function getTranslationFontClass(language: string): string {
+  switch (language) {
+    case "bn":
+      return "font-bengali";
+    case "ur":
+      return "font-urdu";
+    case "hi":
+      return "font-hindi";
+    case "ta":
+      return "font-tamil";
+    case "ml":
+      return "font-malayalam";
+    default:
+      return "font-translation";
+  }
+}
+
 const API_BASE = "https://api.alquran.cloud/v1";
 
 export async function getAllSurahs(): Promise<Surah[]> {

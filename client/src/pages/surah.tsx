@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
 import { useState, useEffect } from "react";
-import { getSurahWithTranslation, AVAILABLE_TRANSLATIONS, type SurahDetail } from "@/lib/quranApi";
+import { getSurahWithTranslation, AVAILABLE_TRANSLATIONS, getTranslationFontClass, type SurahDetail } from "@/lib/quranApi";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -103,8 +103,7 @@ export default function SurahPage() {
           ) : surah && (
             <div className="text-center">
               <h1 
-                className="text-3xl text-[#D4AF37] mb-1" 
-                style={{ fontFamily: "'Amiri', serif" }}
+                className="text-4xl text-[#D4AF37] mb-1 font-arabic"
                 data-testid="text-surah-name-arabic"
               >
                 {surah.name}
@@ -122,8 +121,7 @@ export default function SurahPage() {
         {surahNumber !== 9 && surahNumber !== 1 && (
           <div className="text-center py-4 px-4">
             <p 
-              className="text-2xl text-[#D4AF37]" 
-              style={{ fontFamily: "'Amiri', serif" }}
+              className="text-3xl text-[#D4AF37] font-arabic"
               data-testid="text-bismillah"
             >
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
@@ -160,8 +158,7 @@ export default function SurahPage() {
                 </div>
                 
                 <p 
-                  className="text-2xl leading-loose text-white text-right mb-4" 
-                  style={{ fontFamily: "'Amiri', serif" }}
+                  className="text-3xl leading-[2] text-white text-right mb-5 font-arabic tracking-wide"
                   dir="rtl"
                   data-testid={`ayah-arabic-${ayah.numberInSurah}`}
                 >
@@ -170,7 +167,7 @@ export default function SurahPage() {
                 
                 {ayah.translation && (
                   <p 
-                    className="text-white/70 text-sm leading-relaxed"
+                    className={`text-white/80 text-lg leading-relaxed ${getTranslationFontClass(currentTranslation?.language || "en")}`}
                     dir={currentTranslation?.direction || "ltr"}
                     data-testid={`ayah-translation-${ayah.numberInSurah}`}
                   >
