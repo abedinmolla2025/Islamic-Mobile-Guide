@@ -156,7 +156,7 @@ export default function Home() {
                       <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year} AH</span>
                     </div>
                     <div className="bg-white rounded-full px-3 py-1 shadow-md">
-                      <span className="text-emerald-600 font-bold text-xs">Wemu</span>
+                      <span className="text-emerald-600 font-bold text-xs">Noor</span>
                     </div>
                   </div>
 
