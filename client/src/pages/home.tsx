@@ -134,87 +134,68 @@ export default function Home() {
         ) : (
           <>
             <div className="p-4">
-              {/* Enhanced Prayer Card */}
-              <div className="relative bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 rounded-3xl overflow-hidden shadow-xl">
+              {/* Enhanced Prayer Card - Compact */}
+              <div className="relative bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 rounded-2xl overflow-hidden shadow-lg">
                 {/* Background Pattern */}
                 <div className="absolute inset-0">
-                  <div className="absolute right-0 top-0 w-64 h-64 opacity-10">
+                  <div className="absolute right-0 top-0 w-40 h-40 opacity-10">
                     <svg viewBox="0 0 200 200" className="w-full h-full">
                       <path d="M100 10 L120 70 L185 70 L135 110 L155 175 L100 140 L45 175 L65 110 L15 70 L80 70 Z" fill="currentColor" className="text-white"/>
-                    </svg>
-                  </div>
-                  <div className="absolute left-0 bottom-0 w-48 h-48 opacity-5">
-                    <svg viewBox="0 0 200 200" className="w-full h-full">
-                      <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="2" className="text-white"/>
-                      <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="2" className="text-white"/>
-                      <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="2" className="text-white"/>
                     </svg>
                   </div>
                 </div>
                 
                 {/* Card Content */}
-                <div className="relative z-10 p-5">
+                <div className="relative z-10 p-4">
                   {/* Header Row */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-white/80" />
-                      <span className="text-white/90 text-sm font-medium">{location?.city || 'Unknown'}</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-white/80" />
+                      <span className="text-white/90 text-xs font-medium">{location?.city || 'Unknown'}</span>
+                      <span className="text-white/60 text-xs">|</span>
+                      <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year} AH</span>
                     </div>
-                    <div className="bg-white rounded-full px-4 py-1.5 shadow-lg">
-                      <span className="text-emerald-600 font-bold text-sm tracking-wide">Wemu</span>
+                    <div className="bg-white rounded-full px-3 py-1 shadow-md">
+                      <span className="text-emerald-600 font-bold text-xs">Wemu</span>
                     </div>
                   </div>
-
-                  {/* Hijri Date */}
-                  <p className="text-white/80 text-sm mb-3 font-medium">
-                    {hijriDate?.day} {hijriDate?.month}, {hijriDate?.year} AH
-                  </p>
 
                   <div className="flex items-center justify-between">
                     {/* Left Content */}
                     <div className="flex-1">
                       {/* Prayer Name with Icon */}
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                          <Moon className="w-5 h-5 text-amber-300" />
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                          <Moon className="w-4 h-4 text-amber-300" />
                         </div>
-                        <h2 className="text-3xl font-bold text-white tracking-tight">{nextPrayer?.name || 'Fajr'}</h2>
+                        <h2 className="text-2xl font-bold text-white">{nextPrayer?.name || 'Fajr'}</h2>
                       </div>
                       
                       {/* Time Display */}
-                      <div className="flex items-baseline gap-2 mb-4">
-                        <span className="text-5xl font-bold text-white tracking-tight">{formattedTime.time}</span>
-                        <span className="text-xl text-white/90 font-semibold">{formattedTime.period}</span>
+                      <div className="flex items-baseline gap-1.5 mb-2">
+                        <span className="text-4xl font-bold text-white tracking-tight">{formattedTime.time}</span>
+                        <span className="text-lg text-white/90 font-semibold">{formattedTime.period}</span>
                       </div>
 
                       {/* Countdown */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <Clock className="w-4 h-4 text-white/70" />
-                        <p className="text-white/80 text-sm font-medium">
-                          Next prayer in{' '}
+                      <div className="flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5 text-white/70" />
+                        <p className="text-white/80 text-xs font-medium">
+                          Next in{' '}
                           <span className="text-white font-bold tabular-nums">
                             {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
                           </span>
                         </p>
                       </div>
-
-                      {/* CTA */}
-                      <Link href="/tools">
-                        <div className="flex items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer group">
-                          <span className="text-sm font-medium">View all prayer times</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </Link>
                     </div>
 
                     {/* Right Image */}
-                    <div className="flex-shrink-0 relative">
-                      <div className="absolute inset-0 bg-emerald-600/30 rounded-2xl blur-xl"></div>
+                    <div className="flex-shrink-0">
                       <img 
                         src={prayingManImg} 
                         alt="Praying man" 
-                        className="w-32 h-32 object-cover rounded-2xl relative z-10" 
-                        style={{ clipPath: 'inset(3% 3% 3% 3% round 12px)' }} 
+                        className="w-24 h-24 object-cover rounded-xl" 
+                        style={{ clipPath: 'inset(3% 3% 3% 3% round 10px)' }} 
                       />
                     </div>
                   </div>
