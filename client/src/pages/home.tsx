@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, BookOpen, Compass, Heart, Grid, ChevronRight, Moon, ArrowRight, Clock, Sun, Sunrise, Sunset, CloudSun } from "lucide-react";
+import { MapPin, Loader2, BookOpen, Compass, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, HandHeart, MapPinned, CircleDot, Calendar } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
@@ -9,13 +9,12 @@ import { storage } from "@/lib/storage";
 import prayingManImg from "@assets/generated_images/muslim_man_praying_illustration.png";
 
 const features = [
-  { icon: "📖", label: "Quran", path: "/quran", color: "bg-emerald-500" },
-  { icon: "🤲", label: "Azkar", path: "/duas", color: "bg-amber-500" },
-  { icon: "📍", label: "Nearby", path: "/tools", color: "bg-red-500" },
-  { icon: "🧭", label: "Qibla", path: "/qibla", color: "bg-emerald-500" },
-  { icon: "📿", label: "Tasbih", path: "/tasbih", color: "bg-emerald-400" },
-  { icon: "📅", label: "Hijri", path: "/tools", color: "bg-cyan-500" },
-  { icon: "🕌", label: "Hajj", path: "/tools", color: "bg-purple-500" },
+  { icon: BookOpen, label: "Quran", path: "/quran", color: "text-emerald-600" },
+  { icon: HandHeart, label: "Azkar", path: "/duas", color: "text-amber-500" },
+  { icon: MapPinned, label: "Nearby", path: "/tools", color: "text-red-500" },
+  { icon: Compass, label: "Qibla", path: "/qibla", color: "text-emerald-500" },
+  { icon: CircleDot, label: "Tasbih", path: "/tasbih", color: "text-emerald-400" },
+  { icon: Calendar, label: "Hijri", path: "/tools", color: "text-cyan-500" },
 ];
 
 export default function Home() {
@@ -153,7 +152,7 @@ export default function Home() {
                       <MapPin className="w-3.5 h-3.5 text-white/80" />
                       <span className="text-white/90 text-xs font-medium">{location?.city || 'Unknown'}</span>
                       <span className="text-white/60 text-xs">|</span>
-                      <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year} AH</span>
+                      <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
                     </div>
                     <div className="bg-white rounded-full px-3 py-1 shadow-md">
                       <span className="text-emerald-600 font-bold text-xs">Noor</span>
@@ -212,7 +211,7 @@ export default function Home() {
                       data-testid={`feature-${feature.label.toLowerCase()}`}
                     >
                       <div className="w-16 h-16 rounded-2xl bg-white shadow-md flex items-center justify-center mb-2 hover:shadow-lg transition-shadow">
-                        <span className="text-3xl">{feature.icon}</span>
+                        <feature.icon className={cn("w-8 h-8", feature.color)} />
                       </div>
                       <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
                     </div>
