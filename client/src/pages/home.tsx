@@ -6,7 +6,7 @@ import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
-import prayingManImg from "@assets/praying_man.png";
+import prayingManImg from "@assets/generated_images/muslim_man_praying_illustration.png";
 
 const features = [
   { icon: "📖", label: "Quran", path: "/quran", color: "bg-emerald-500" },
@@ -194,8 +194,7 @@ export default function Home() {
                       <img 
                         src={prayingManImg} 
                         alt="Praying man" 
-                        className="w-24 h-24 object-cover rounded-xl" 
-                        style={{ clipPath: 'inset(3% 3% 3% 3% round 10px)' }} 
+                        className="w-24 h-24 object-contain rounded-xl" 
                       />
                     </div>
                   </div>
