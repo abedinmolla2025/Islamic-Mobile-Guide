@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, BookOpen, Compass, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, HandHeart, MapPinned, CircleDot, Calendar } from "lucide-react";
+import { MapPin, Loader2, BookOpen, Compass, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, HandHeart, MapPinned, CircleDot, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
-import prayingManImg from "@assets/generated_images/muslim_man_praying_illustration.png";
+import prayingManImg from "@assets/generated_images/praying_muslim_man_transparent.png";
 
 const features = [
   { icon: BookOpen, label: "Quran", path: "/quran", color: "text-emerald-600" },
@@ -23,6 +23,7 @@ export default function Home() {
   const [location, setLocation] = useState<{ city: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [showAllPrayers, setShowAllPrayers] = useState(false);
 
   useEffect(() => {
     initializePrayerTimes();
@@ -189,11 +190,11 @@ export default function Home() {
                     </div>
 
                     {/* Right Image */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 bg-white/20 backdrop-blur-sm rounded-2xl p-2">
                       <img 
                         src={prayingManImg} 
                         alt="Praying man" 
-                        className="w-24 h-24 object-contain rounded-xl" 
+                        className="w-20 h-20 object-contain rounded-xl" 
                       />
                     </div>
                   </div>
@@ -228,7 +229,7 @@ export default function Home() {
                   <span className="text-xs text-gray-500">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
                 </div>
                 <div className="divide-y divide-gray-100">
-                  {prayerTimes.map((prayer, idx) => (
+                  {(showAllPrayers ? prayerTimes : prayerTimes.slice(0, 3)).map((prayer, idx) => (
                     <div 
                       key={idx}
                       data-testid={`prayer-${prayer.name.toLowerCase()}`}
@@ -265,6 +266,25 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+                {prayerTimes.length > 3 && (
+                  <button
+                    onClick={() => setShowAllPrayers(!showAllPrayers)}
+                    data-testid="button-show-more-prayers"
+                    className="w-full py-3 flex items-center justify-center gap-2 text-emerald-600 font-medium text-sm border-t border-gray-100 hover:bg-gray-50 transition-colors"
+                  >
+                    {showAllPrayers ? (
+                      <>
+                        <span>Show Less</span>
+                        <ChevronUp className="w-4 h-4" />
+                      </>
+                    ) : (
+                      <>
+                        <span>Show More</span>
+                        <ChevronDown className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
 
