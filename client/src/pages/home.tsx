@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, BookOpen, Compass, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, HandHeart, MapPinned, CircleDot, Calendar, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
@@ -9,12 +9,12 @@ import { storage } from "@/lib/storage";
 import prayingManImg from "@assets/generated_images/praying_muslim_man_transparent.png";
 
 const features = [
-  { icon: BookOpen, label: "Quran", path: "/quran", color: "text-emerald-600" },
-  { icon: HandHeart, label: "Azkar", path: "/duas", color: "text-amber-500" },
-  { icon: MapPinned, label: "Nearby", path: "/tools", color: "text-red-500" },
-  { icon: Compass, label: "Qibla", path: "/qibla", color: "text-emerald-500" },
-  { icon: CircleDot, label: "Tasbih", path: "/tasbih", color: "text-emerald-400" },
-  { icon: Calendar, label: "Hijri", path: "/tools", color: "text-cyan-500" },
+  { emoji: "📖", label: "Quran", path: "/quran" },
+  { emoji: "🤲", label: "Azkar", path: "/duas" },
+  { emoji: "📍", label: "Nearby", path: "/tools" },
+  { emoji: "🧭", label: "Qibla", path: "/qibla" },
+  { emoji: "📿", label: "Tasbih", path: "/tasbih" },
+  { emoji: "🗓️", label: "Hijri", path: "/tools" },
 ];
 
 export default function Home() {
@@ -212,7 +212,7 @@ export default function Home() {
                       data-testid={`feature-${feature.label.toLowerCase()}`}
                     >
                       <div className="w-16 h-16 rounded-2xl bg-white shadow-md flex items-center justify-center mb-2 hover:shadow-lg transition-shadow">
-                        <feature.icon className={cn("w-8 h-8", feature.color)} />
+                        <span className="text-3xl">{feature.emoji}</span>
                       </div>
                       <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
                     </div>
