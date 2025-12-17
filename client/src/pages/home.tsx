@@ -199,11 +199,11 @@ export default function Home() {
                     </div>
 
                     {/* Right Image */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 -ml-4">
                       <img 
                         src={prayingManImg} 
                         alt="Praying man" 
-                        className="w-24 h-24 object-contain -scale-x-100 drop-shadow-lg" 
+                        className="w-36 h-36 object-contain -scale-x-100 drop-shadow-lg" 
                       />
                     </div>
                   </div>
