@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp, BookOpen, HandHeart, Navigation, Compass, Circle, Calendar } from "lucide-react";
+import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
@@ -9,12 +9,12 @@ import { storage } from "@/lib/storage";
 import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
 
 const features = [
-  { icon: BookOpen, label: "Quran", path: "/quran", color: "text-emerald-600" },
-  { icon: HandHeart, label: "Azkar", path: "/duas", color: "text-amber-600" },
-  { icon: Navigation, label: "Nearby", path: "/tools", color: "text-rose-500" },
-  { icon: Compass, label: "Qibla", path: "/qibla", color: "text-teal-600" },
-  { icon: Circle, label: "Tasbih", path: "/tasbih", color: "text-orange-500" },
-  { icon: Calendar, label: "Hijri", path: "/tools", color: "text-blue-600" },
+  { emoji: "📖", label: "Quran", path: "/quran" },
+  { emoji: "🤲", label: "Azkar", path: "/duas" },
+  { emoji: "📍", label: "Nearby", path: "/tools" },
+  { emoji: "🧭", label: "Qibla", path: "/qibla" },
+  { emoji: "📿", label: "Tasbih", path: "/tasbih" },
+  { emoji: "🗓️", label: "Hijri", path: "/tools" },
 ];
 
 export default function Home() {
@@ -192,25 +192,22 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Feature Icons - Clean Grid */}
+            {/* Feature Icons */}
             <div className="px-4 mb-6">
               <div className="flex justify-between gap-2">
-                {features.map((feature, idx) => {
-                  const Icon = feature.icon;
-                  return (
-                    <Link key={idx} href={feature.path}>
-                      <div 
-                        className="flex flex-col items-center cursor-pointer group"
-                        data-testid={`feature-${feature.label.toLowerCase()}`}
-                      >
-                        <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-md transition-all">
-                          <Icon className={cn("w-6 h-6", feature.color)} />
-                        </div>
-                        <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
+                {features.map((feature, idx) => (
+                  <Link key={idx} href={feature.path}>
+                    <div 
+                      className="flex flex-col items-center cursor-pointer group"
+                      data-testid={`feature-${feature.label.toLowerCase()}`}
+                    >
+                      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-md transition-all">
+                        <span className="text-2xl">{feature.emoji}</span>
                       </div>
-                    </Link>
-                  );
-                })}
+                      <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
 
