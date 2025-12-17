@@ -4,21 +4,118 @@ export interface PrayerTime {
   isNext: boolean;
 }
 
-// More accurate prayer time calculation based on sun position
+export interface AladhanResponse {
+  code: number;
+  status: string;
+  data: {
+    timings: {
+      Fajr: string;
+      Sunrise: string;
+      Dhuhr: string;
+      Asr: string;
+      Maghrib: string;
+      Isha: string;
+    };
+    date: {
+      hijri: {
+        day: string;
+        month: { en: string; number: number };
+        year: string;
+      };
+    };
+  };
+}
+
+export async function fetchPrayerTimesFromAPI(
+  latitude: number, 
+  longitude: number,
+  method: number = 1 // 1 = University of Islamic Sciences, Karachi (Hanafi default)
+): Promise<{ prayers: PrayerTime[]; hijri: { day: string; month: string; year: string; gregorian: string } } | null> {
+  try {
+    const today = new Date();
+    const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+    
+    const response = await fetch(
+      `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${latitude}&longitude=${longitude}&method=${method}&school=1`
+    );
+    
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
+    
+    const data: AladhanResponse = await response.json();
+    
+    if (data.code !== 200) {
+      throw new Error('Invalid API response');
+    }
+
+    const timings = data.data.timings;
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const parseTimeToMinutes = (time: string): number => {
+      const [hours, minutes] = time.split(':').map(Number);
+      return hours * 60 + minutes;
+    };
+
+    const formatTo12Hour = (time: string): string => {
+      const [hours, minutes] = time.split(':').map(Number);
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const displayHour = hours % 12 || 12;
+      return `${displayHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
+    };
+
+    const prayerNames = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'] as const;
+    let nextPrayerFound = false;
+
+    const prayers: PrayerTime[] = prayerNames.map((name) => {
+      const time24 = timings[name];
+      const prayerMinutes = parseTimeToMinutes(time24);
+      const isNext = !nextPrayerFound && prayerMinutes > currentMinutes;
+      if (isNext) nextPrayerFound = true;
+
+      return {
+        name,
+        time: formatTo12Hour(time24),
+        isNext,
+      };
+    });
+
+    // If no next prayer found today, first prayer of tomorrow is next
+    if (!nextPrayerFound && prayers.length > 0) {
+      prayers[0].isNext = true;
+    }
+
+    const gregorianFormatted = new Date().toLocaleDateString('en-US', { 
+      weekday: 'long', 
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    const hijri = {
+      day: data.data.date.hijri.day,
+      month: data.data.date.hijri.month.en,
+      year: `${data.data.date.hijri.year} AH`,
+      gregorian: gregorianFormatted,
+    };
+
+    return { prayers, hijri };
+  } catch (error) {
+    console.error('Failed to fetch prayer times from API:', error);
+    return null;
+  }
+}
+
+// Fallback: Local calculation based on sun position
 export function calculatePrayerTimes(latitude: number, longitude: number, date: Date = new Date()): PrayerTime[] {
-  // Get the Julian Day Number
   const jd = getJulianDay(date);
-  
-  // Calculate sun position
   const sunDeclination = getSunDeclination(jd);
   const eqTime = getEquationOfTime(jd);
-  
-  // Get timezone offset in hours
   const timezone = -date.getTimezoneOffset() / 60;
   
-  // Calculate prayer times
-  const fajrAngle = -18; // Fajr: 18 degrees below horizon
-  const ishaAngle = -17; // Isha: 17 degrees below horizon
+  const fajrAngle = -18;
+  const ishaAngle = -17;
   
   const noon = 12 + timezone - longitude / 15 - eqTime / 60;
   const sunriseHour = noon - getHourAngle(latitude, sunDeclination, -0.833) / 15;
@@ -26,15 +123,14 @@ export function calculatePrayerTimes(latitude: number, longitude: number, date: 
   const fajrHour = noon - getHourAngle(latitude, sunDeclination, fajrAngle) / 15;
   const ishaHour = noon + getHourAngle(latitude, sunDeclination, ishaAngle) / 15;
   
-  // Asr calculation (Hanafi method: shadow = 2 * object height)
-  const asrFactor = 2; // Hanafi
+  const asrFactor = 2;
   const asrAngle = Math.atan(1 / (asrFactor + Math.tan(Math.abs(latitude - sunDeclination) * Math.PI / 180))) * 180 / Math.PI;
   const asrHour = noon + getHourAngle(latitude, sunDeclination, -asrAngle) / 15;
 
   const prayers = [
     { name: 'Fajr', hour: fajrHour },
     { name: 'Sunrise', hour: sunriseHour },
-    { name: 'Dhuhr', hour: noon + 0.016667 }, // Add 1 minute after solar noon
+    { name: 'Dhuhr', hour: noon + 0.016667 },
     { name: 'Asr', hour: asrHour },
     { name: 'Maghrib', hour: sunsetHour },
     { name: 'Isha', hour: ishaHour },
@@ -65,7 +161,6 @@ export function calculatePrayerTimes(latitude: number, longitude: number, date: 
   });
 }
 
-// Helper functions for astronomical calculations
 function getJulianDay(date: Date): number {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;

@@ -3,8 +3,8 @@ import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
 import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
-import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
-import { getHijriDate, type HijriDate } from "@/lib/hijri";
+import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
+import { type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
 import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
 
@@ -27,7 +27,6 @@ export default function Home() {
 
   useEffect(() => {
     initializePrayerTimes();
-    setHijriDate(getHijriDate());
   }, []);
 
   useEffect(() => {
@@ -80,18 +79,37 @@ export default function Home() {
     let savedLocation = storage.getUserLocation() || defaultLocation;
     
     setLocation({ city: savedLocation.city });
-    const times = calculatePrayerTimes(savedLocation.latitude, savedLocation.longitude);
-    setPrayerTimes(times);
+    
+    // Try to fetch from Aladhan API first
+    const apiResult = await fetchPrayerTimesFromAPI(savedLocation.latitude, savedLocation.longitude);
+    
+    if (apiResult) {
+      setPrayerTimes(apiResult.prayers);
+      setHijriDate(apiResult.hijri);
+    } else {
+      // Fallback to local calculation
+      const times = calculatePrayerTimes(savedLocation.latitude, savedLocation.longitude);
+      setPrayerTimes(times);
+    }
+    
     setLoading(false);
     
     // Try to get actual user location in background
     if (!storage.getUserLocation()) {
-      getUserLocation().then(userLocation => {
+      getUserLocation().then(async (userLocation) => {
         if (userLocation) {
           storage.setUserLocation(userLocation);
           setLocation({ city: userLocation.city });
-          const newTimes = calculatePrayerTimes(userLocation.latitude, userLocation.longitude);
-          setPrayerTimes(newTimes);
+          
+          // Fetch from API for new location
+          const newApiResult = await fetchPrayerTimesFromAPI(userLocation.latitude, userLocation.longitude);
+          if (newApiResult) {
+            setPrayerTimes(newApiResult.prayers);
+            setHijriDate(newApiResult.hijri);
+          } else {
+            const newTimes = calculatePrayerTimes(userLocation.latitude, userLocation.longitude);
+            setPrayerTimes(newTimes);
+          }
         }
       });
     }
