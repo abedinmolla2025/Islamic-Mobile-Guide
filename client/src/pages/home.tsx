@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp, BookOpen, HandHeart, Navigation, Compass, Circle, Calendar } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
 import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
-import noorLogoImg from "@assets/1765899731230_1765983728124.jpg";
 
 const features = [
-  { emoji: "📖", label: "Quran", path: "/quran" },
-  { emoji: "🤲", label: "Azkar", path: "/duas" },
-  { emoji: "📍", label: "Nearby", path: "/tools" },
-  { emoji: "🧭", label: "Qibla", path: "/qibla" },
-  { emoji: "📿", label: "Tasbih", path: "/tasbih" },
-  { emoji: "🗓️", label: "Hijri", path: "/tools" },
+  { icon: BookOpen, label: "Quran", path: "/quran", color: "text-emerald-600" },
+  { icon: HandHeart, label: "Azkar", path: "/duas", color: "text-amber-600" },
+  { icon: Navigation, label: "Nearby", path: "/tools", color: "text-rose-500" },
+  { icon: Compass, label: "Qibla", path: "/qibla", color: "text-teal-600" },
+  { icon: Circle, label: "Tasbih", path: "/tasbih", color: "text-orange-500" },
+  { icon: Calendar, label: "Hijri", path: "/tools", color: "text-blue-600" },
 ];
 
 export default function Home() {
@@ -134,90 +133,84 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <div className="p-4">
-              {/* Enhanced Prayer Card - Compact */}
-              <div className="relative bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 rounded-2xl overflow-hidden shadow-lg">
-                {/* Background Pattern - Decorative Islamic Pattern */}
-                <div className="absolute inset-0 overflow-hidden">
-                  <div className="absolute -right-10 -top-10 w-64 h-64 opacity-10">
-                    <svg viewBox="0 0 200 200" className="w-full h-full text-white">
-                      <pattern id="islamicPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="none" stroke="currentColor" strokeWidth="1"/>
-                        <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" strokeWidth="1"/>
+            <div className="p-4 pt-6">
+              {/* Premium Prayer Card - WeMuslim Style */}
+              <div className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl overflow-hidden shadow-xl">
+                {/* Subtle Background Pattern */}
+                <div className="absolute inset-0 opacity-[0.08]">
+                  <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <defs>
+                      <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <circle cx="10" cy="10" r="1.5" fill="white"/>
                       </pattern>
-                      <rect width="200" height="200" fill="url(#islamicPattern)"/>
-                    </svg>
-                  </div>
+                    </defs>
+                    <rect width="100" height="100" fill="url(#dots)"/>
+                  </svg>
+                </div>
+
+                {/* Praying Man Illustration - Positioned Right */}
+                <div className="absolute right-2 bottom-0 z-10">
+                  <img 
+                    src={prayingManImg} 
+                    alt="" 
+                    className="w-28 h-28 object-contain drop-shadow-2xl opacity-95" 
+                  />
                 </div>
                 
                 {/* Card Content */}
-                <div className="relative z-10 p-4">
-                  {/* Header Row */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-white/80" />
-                      <span className="text-white/90 text-xs font-medium">{location?.city || 'Unknown'}</span>
-                      <span className="text-white/60 text-xs">|</span>
-                      <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
-                    </div>
-                    <div className="bg-white rounded-full p-1.5 shadow-lg">
-                      <img 
-                        src={noorLogoImg} 
-                        alt="Noor Logo" 
-                        className="w-8 h-8 object-contain rounded-full"
-                      />
-                    </div>
+                <div className="relative z-20 p-6">
+                  {/* Location & Date - Minimal Header */}
+                  <div className="flex items-center gap-2 mb-6">
+                    <MapPin className="w-4 h-4 text-white/70" />
+                    <span className="text-white/90 text-sm font-medium">{location?.city || 'Unknown'}</span>
+                    <span className="text-white/40 mx-1">·</span>
+                    <span className="text-white/70 text-sm">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
                   </div>
 
-                  {/* Prayer Name with Image */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                      <Moon className="w-4 h-4 text-amber-300" />
-                    </div>
-                    <h2 className="text-2xl font-bold text-white">{nextPrayer?.name || 'Fajr'}</h2>
-                    <img 
-                      src={prayingManImg} 
-                      alt="Praying man" 
-                      className="w-16 h-16 object-contain -scale-x-100 drop-shadow-lg" 
-                    />
-                  </div>
+                  {/* Prayer Name - Large & Bold */}
+                  <h2 className="text-4xl font-bold text-white mb-2 tracking-tight">
+                    {nextPrayer?.name || 'Fajr'}
+                  </h2>
                   
-                  {/* Time Display */}
-                  <div className="flex items-baseline gap-1.5 mb-2">
-                    <span className="text-4xl font-bold text-white tracking-tight">{formattedTime.time}</span>
-                    <span className="text-lg text-white/90 font-semibold">{formattedTime.period}</span>
+                  {/* Time Display - Clean */}
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <span className="text-5xl font-bold text-white tracking-tight">{formattedTime.time}</span>
+                    <span className="text-xl text-white/80 font-medium">{formattedTime.period}</span>
                   </div>
 
-                  {/* Countdown */}
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-white/70" />
-                    <p className="text-white/80 text-xs font-medium">
+                  {/* Countdown - Subtle */}
+                  <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2">
+                    <Clock className="w-4 h-4 text-white/80" />
+                    <span className="text-white/90 text-sm font-medium">
                       Next in{' '}
                       <span className="text-white font-bold tabular-nums">
                         {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
                       </span>
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Feature Icons */}
-            <div className="px-4 mb-4">
-              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                {features.map((feature, idx) => (
-                  <Link key={idx} href={feature.path}>
-                    <div 
-                      className="flex flex-col items-center min-w-[70px] cursor-pointer"
-                      data-testid={`feature-${feature.label.toLowerCase()}`}
-                    >
-                      <div className="w-16 h-16 rounded-2xl bg-white shadow-md flex items-center justify-center mb-2 hover:shadow-lg transition-shadow">
-                        <span className="text-3xl">{feature.emoji}</span>
+            {/* Feature Icons - Clean Grid */}
+            <div className="px-4 mb-6">
+              <div className="flex justify-between gap-2">
+                {features.map((feature, idx) => {
+                  const Icon = feature.icon;
+                  return (
+                    <Link key={idx} href={feature.path}>
+                      <div 
+                        className="flex flex-col items-center cursor-pointer group"
+                        data-testid={`feature-${feature.label.toLowerCase()}`}
+                      >
+                        <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-md transition-all">
+                          <Icon className={cn("w-6 h-6", feature.color)} />
+                        </div>
+                        <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
                       </div>
-                      <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
@@ -288,13 +281,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Location Footer */}
-            <div className="px-4">
-              <div className="flex items-center gap-2 text-gray-500 text-sm justify-center">
-                <MapPin className="w-4 h-4" />
-                <span>{location?.city || 'Unknown Location'}</span>
-              </div>
-            </div>
           </>
         )}
       </div>
