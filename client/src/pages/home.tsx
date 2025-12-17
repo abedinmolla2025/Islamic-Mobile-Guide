@@ -7,6 +7,7 @@ import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/pr
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
 import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
+import noorLogoImg from "@assets/1765899731230_1765983728124.jpg";
 
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran" },
@@ -155,47 +156,48 @@ export default function Home() {
                       <span className="text-white/60 text-xs">|</span>
                       <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
                     </div>
-                    <div className="bg-white rounded-full px-3 py-1 shadow-md">
-                      <span className="text-emerald-600 font-bold text-xs">Noor</span>
-                    </div>
+                    <img 
+                      src={noorLogoImg} 
+                      alt="Noor Logo" 
+                      className="w-12 h-12 object-contain rounded-full shadow-md"
+                      style={{ mixBlendMode: 'multiply' }}
+                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    {/* Left Content */}
-                    <div className="flex-1">
-                      {/* Prayer Name with Icon */}
-                      <div className="flex items-center gap-2 mb-1">
-                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                          <Moon className="w-4 h-4 text-amber-300" />
-                        </div>
-                        <h2 className="text-2xl font-bold text-white">{nextPrayer?.name || 'Fajr'}</h2>
-                      </div>
-                      
-                      {/* Time Display */}
-                      <div className="flex items-baseline gap-1.5 mb-2">
-                        <span className="text-4xl font-bold text-white tracking-tight">{formattedTime.time}</span>
-                        <span className="text-lg text-white/90 font-semibold">{formattedTime.period}</span>
-                      </div>
+                  {/* Centered Praying Man Image */}
+                  <div className="flex justify-center my-4">
+                    <img 
+                      src={prayingManImg} 
+                      alt="Praying man" 
+                      className="w-48 h-48 object-contain -scale-x-100 drop-shadow-2xl" 
+                    />
+                  </div>
 
-                      {/* Countdown */}
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-white/70" />
-                        <p className="text-white/80 text-xs font-medium">
-                          Next in{' '}
-                          <span className="text-white font-bold tabular-nums">
-                            {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
-                          </span>
-                        </p>
+                  {/* Prayer Info Below Image */}
+                  <div className="text-center">
+                    {/* Prayer Name with Icon */}
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                        <Moon className="w-4 h-4 text-amber-300" />
                       </div>
+                      <h2 className="text-2xl font-bold text-white">{nextPrayer?.name || 'Fajr'}</h2>
+                    </div>
+                    
+                    {/* Time Display */}
+                    <div className="flex items-baseline justify-center gap-1.5 mb-2">
+                      <span className="text-5xl font-bold text-white tracking-tight">{formattedTime.time}</span>
+                      <span className="text-xl text-white/90 font-semibold">{formattedTime.period}</span>
                     </div>
 
-                    {/* Right Image */}
-                    <div className="flex-shrink-0">
-                      <img 
-                        src={prayingManImg} 
-                        alt="Praying man" 
-                        className="w-24 h-24 object-contain -scale-x-100 drop-shadow-lg" 
-                      />
+                    {/* Countdown */}
+                    <div className="flex items-center justify-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-white/70" />
+                      <p className="text-white/80 text-sm font-medium">
+                        Next in{' '}
+                        <span className="text-white font-bold tabular-nums">
+                          {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
+                        </span>
+                      </p>
                     </div>
                   </div>
                 </div>
