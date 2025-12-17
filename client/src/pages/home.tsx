@@ -169,43 +169,34 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    {/* Left Content */}
-                    <div className="flex-1">
-                      {/* Prayer Name with Icon */}
-                      <div className="flex items-center gap-2 mb-1">
-                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                          <Moon className="w-4 h-4 text-amber-300" />
-                        </div>
-                        <h2 className="text-2xl font-bold text-white">{nextPrayer?.name || 'Fajr'}</h2>
-                      </div>
-                      
-                      {/* Time Display */}
-                      <div className="flex items-baseline gap-1.5 mb-2">
-                        <span className="text-4xl font-bold text-white tracking-tight">{formattedTime.time}</span>
-                        <span className="text-lg text-white/90 font-semibold">{formattedTime.period}</span>
-                      </div>
-
-                      {/* Countdown */}
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-white/70" />
-                        <p className="text-white/80 text-xs font-medium">
-                          Next in{' '}
-                          <span className="text-white font-bold tabular-nums">
-                            {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
-                          </span>
-                        </p>
-                      </div>
+                  {/* Prayer Name with Image */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                      <Moon className="w-4 h-4 text-amber-300" />
                     </div>
+                    <h2 className="text-2xl font-bold text-white">{nextPrayer?.name || 'Fajr'}</h2>
+                    <img 
+                      src={prayingManImg} 
+                      alt="Praying man" 
+                      className="w-16 h-16 object-contain -scale-x-100 drop-shadow-lg" 
+                    />
+                  </div>
+                  
+                  {/* Time Display */}
+                  <div className="flex items-baseline gap-1.5 mb-2">
+                    <span className="text-4xl font-bold text-white tracking-tight">{formattedTime.time}</span>
+                    <span className="text-lg text-white/90 font-semibold">{formattedTime.period}</span>
+                  </div>
 
-                    {/* Right Image */}
-                    <div className="flex-shrink-0 -ml-4">
-                      <img 
-                        src={prayingManImg} 
-                        alt="Praying man" 
-                        className="w-36 h-36 object-contain -scale-x-100 drop-shadow-lg" 
-                      />
-                    </div>
+                  {/* Countdown */}
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-white/70" />
+                    <p className="text-white/80 text-xs font-medium">
+                      Next in{' '}
+                      <span className="text-white font-bold tabular-nums">
+                        {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
