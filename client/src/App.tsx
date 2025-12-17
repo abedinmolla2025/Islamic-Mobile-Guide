@@ -11,6 +11,8 @@ import Tools from "@/pages/tools";
 import Duas from "@/pages/duas";
 import Tasbih from "@/pages/tasbih";
 import Qibla from "@/pages/qibla";
+import Names from "@/pages/names";
+import AsmaUlHusna from "@/pages/asma-ul-husna";
 
 function Router() {
   return (
@@ -22,6 +24,8 @@ function Router() {
       <Route path="/tools" component={Tools} />
       <Route path="/tasbih" component={Tasbih} />
       <Route path="/qibla" component={Qibla} />
+      <Route path="/names" component={Names} />
+      <Route path="/asma-ul-husna" component={AsmaUlHusna} />
       <Route component={NotFound} />
     </Switch>
   );

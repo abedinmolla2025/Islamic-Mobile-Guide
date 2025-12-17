@@ -11,10 +11,10 @@ import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_2096
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran" },
   { emoji: "🤲", label: "Azkar", path: "/duas" },
-  { emoji: "📍", label: "Nearby", path: "/tools" },
+  { emoji: "👶", label: "Names", path: "/names" },
   { emoji: "🧭", label: "Qibla", path: "/qibla" },
   { emoji: "📿", label: "Tasbih", path: "/tasbih" },
-  { emoji: "🗓️", label: "Hijri", path: "/tools" },
+  { emoji: "✨", label: "99 Names", path: "/asma-ul-husna" },
 ];
 
 export default function Home() {
