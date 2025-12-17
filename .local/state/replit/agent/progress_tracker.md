@@ -41,3 +41,30 @@
   - Fade-in animation on load
   - Smooth prayer transition animation
 - Access URL: /prayer-card.html
+
+## New Features Added (December 17, 2025 - Latest)
+[x] Islamic Names (Boys & Girls) with Multi-Language Support
+- Route: /names
+- Features:
+  - 31 boy names and 26 girl names with meanings
+  - Multi-language support: English, Arabic, Urdu, Bengali, Turkish, Hindi
+  - Language selector in header
+  - Search functionality across names and meanings
+  - Tabs for switching between boys and girls
+  - Favorite button for each name
+  - Arabic script display for each name
+- Files: client/src/pages/names.tsx, client/src/lib/islamicNames.ts
+
+[x] 99 Names of Allah (Asma ul Husna)
+- Route: /asma-ul-husna
+- Features:
+  - All 99 names with Arabic script, transliteration, and meaning
+  - Beautiful amber/orange gradient header
+  - Search by name, number, or meaning
+  - Numbered badges for each name
+- Files: client/src/pages/asma-ul-husna.tsx, client/src/lib/asmaUlHusna.ts
+
+[x] Updated Home Page Navigation
+- Added "Names" shortcut (replaces Nearby)
+- Added "99 Names" shortcut (replaces Hijri)
+- Updated App.tsx with new routes
