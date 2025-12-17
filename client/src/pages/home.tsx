@@ -137,11 +137,15 @@ export default function Home() {
             <div className="p-4">
               {/* Enhanced Prayer Card - Compact */}
               <div className="relative bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 rounded-2xl overflow-hidden shadow-lg">
-                {/* Background Pattern */}
-                <div className="absolute inset-0">
-                  <div className="absolute right-0 top-0 w-40 h-40 opacity-10">
-                    <svg viewBox="0 0 200 200" className="w-full h-full">
-                      <path d="M100 10 L120 70 L185 70 L135 110 L155 175 L100 140 L45 175 L65 110 L15 70 L80 70 Z" fill="currentColor" className="text-white"/>
+                {/* Background Pattern - Decorative Islamic Pattern */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute -right-10 -top-10 w-64 h-64 opacity-10">
+                    <svg viewBox="0 0 200 200" className="w-full h-full text-white">
+                      <pattern id="islamicPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="none" stroke="currentColor" strokeWidth="1"/>
+                        <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" strokeWidth="1"/>
+                      </pattern>
+                      <rect width="200" height="200" fill="url(#islamicPattern)"/>
                     </svg>
                   </div>
                 </div>
@@ -156,12 +160,13 @@ export default function Home() {
                       <span className="text-white/60 text-xs">|</span>
                       <span className="text-white/70 text-xs">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
                     </div>
-                    <img 
-                      src={noorLogoImg} 
-                      alt="Noor Logo" 
-                      className="w-12 h-12 object-contain rounded-full shadow-md"
-                      style={{ mixBlendMode: 'multiply' }}
-                    />
+                    <div className="bg-white rounded-full p-1.5 shadow-lg">
+                      <img 
+                        src={noorLogoImg} 
+                        alt="Noor Logo" 
+                        className="w-8 h-8 object-contain rounded-full"
+                      />
+                    </div>
                   </div>
 
                   {/* Centered Praying Man Image */}
