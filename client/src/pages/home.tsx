@@ -6,7 +6,7 @@ import { Link } from "wouter";
 import { calculatePrayerTimes, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { getHijriDate, type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
-import prayingManImg from "@assets/generated_images/praying_muslim_man_transparent.png";
+import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
 
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran" },
@@ -194,7 +194,7 @@ export default function Home() {
                       <img 
                         src={prayingManImg} 
                         alt="Praying man" 
-                        className="w-20 h-20 object-contain rounded-xl" 
+                        className="w-20 h-20 object-contain rounded-xl -scale-x-100" 
                       />
                     </div>
                   </div>
