@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Prayer Time Card</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===================================
+           CSS Reset & Base Styles
+        =================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ===================================
+           Prayer Card Container
+        =================================== */
+        .prayer-card {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 30px;
+            background: linear-gradient(145deg, #1a8f5c 0%, #0d6b42 50%, #085a36 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 60px rgba(13, 107, 66, 0.3),
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Soft inner glow overlay */
+        .prayer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse at top left,
+                rgba(255, 255, 255, 0.15) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Mosque silhouette background */
+        .mosque-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100'%3E%3Cpath d='M0,100 L0,70 L30,70 L30,50 C30,35 45,25 60,25 C75,25 90,35 90,50 L90,70 L110,70 L110,60 L115,55 L120,60 L120,70 L140,70 L140,40 C140,20 165,5 190,5 C215,5 240,20 240,40 L240,70 L260,70 L260,60 L265,55 L270,60 L270,70 L290,70 L290,50 C290,35 305,25 320,25 C335,25 350,35 350,50 L350,70 L370,70 L370,100 Z' fill='%23000000' opacity='0.08'/%3E%3C/svg%3E") no-repeat center bottom;
+            background-size: cover;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Card inner content wrapper */
+        .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 24px;
+        }
+
+        /* ===================================
+           Top Section - Hijri Date & Badge
+        =================================== */
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .hijri-date {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .brand-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===================================
+           Main Content Section
+        =================================== */
+        .main-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 160px;
+        }
+
+        /* Left side - Prayer info */
+        .prayer-info {
+            flex: 1;
+        }
+
+        .prayer-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .moon-icon {
+            width: 24px;
+            height: 24px;
+            fill: rgba(255, 255, 255, 0.9);
+        }
+
+        .prayer-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .prayer-time {
+            font-size: 52px;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.3s ease;
+        }
+
+        .prayer-time .ampm {
+            font-size: 22px;
+            font-weight: 600;
+            margin-left: 6px;
+            vertical-align: super;
+            opacity: 0.9;
+        }
+
+        .countdown-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .countdown-timer {
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.95);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Right side - Praying illustration */
+        .praying-illustration {
+            width: 140px;
+            height: 140px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .praying-illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.95;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+            border-radius: 16px;
+            mix-blend-mode: multiply;
+        }
+
+        /* ===================================
+           Bottom Section - CTA
+        =================================== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(255, 255, 255, 0.15) 80%,
+                transparent
+            );
+            margin: 20px 0 16px;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cta-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 500;
+        }
+
+        .arrow-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .arrow-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .arrow-button:active {
+            transform: scale(0.95);
+        }
+
+        .arrow-button svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            transform: rotate(-45deg);
+        }
+
+        /* ===================================
+           Responsive Adjustments
+        =================================== */
+        @media (max-width: 380px) {
+            .prayer-card {
+                border-radius: 24px;
+            }
+
+            .card-content {
+                padding: 20px;
+            }
+
+            .prayer-time {
+                font-size: 44px;
+            }
+
+            .prayer-time .ampm {
+                font-size: 18px;
+            }
+
+            .praying-illustration {
+                width: 110px;
+                height: 110px;
+            }
+
+            .prayer-name {
+                font-size: 18px;
+            }
+
+            .hijri-date {
+                font-size: 13px;
+            }
+        }
+
+        /* ===================================
+           Prayer Change Animation
+        =================================== */
+        .prayer-info.changing .prayer-name,
+        .prayer-info.changing .prayer-time {
+            opacity: 0;
+        }
+
+        .prayer-info:not(.changing) .prayer-name,
+        .prayer-info:not(.changing) .prayer-time {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Prayer Time Hero Card -->
+    <div class="prayer-card" data-testid="card-prayer-hero">
+        <!-- Mosque silhouette background -->
+        <div class="mosque-bg"></div>
+        
+        <div class="card-content">
+            <!-- Top Section -->
+            <div class="top-section">
+                <span class="hijri-date" id="hijriDate" data-testid="text-hijri-date">Jumada II 25, 1447 AH</span>
+                <span class="brand-badge" data-testid="badge-brand">Salah Time</span>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-section">
+                <!-- Left - Prayer Info -->
+                <div class="prayer-info" id="prayerInfo">
+                    <div class="prayer-header">
+                        <!-- Moon Icon -->
+                        <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                        </svg>
+                        <span class="prayer-name" id="prayerName" data-testid="text-prayer-name">Fajr</span>
+                    </div>
+                    <div class="prayer-time" id="prayerTime" data-testid="text-prayer-time">
+                        4:51<span class="ampm">AM</span>
+                    </div>
+                    <div class="countdown-text">
+                        Next prayer in <span class="countdown-timer" id="countdown" data-testid="text-countdown">02:34:15</span>
+                    </div>
+                </div>
+
+                <!-- Right - Praying Illustration -->
+                <div class="praying-illustration">
+                    <img src="muslim_man_praying_illustration.png" 
+                         alt="Person praying" 
+                         data-testid="img-praying-person"
+                         onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Bottom Section -->
+            <div class="bottom-section">
+                <span class="cta-text" data-testid="text-cta">Tap to view more prayer times</span>
+                <button class="arrow-button" data-testid="button-view-more" aria-label="View more prayer times">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ===================================
+           Prayer Times Configuration
+           Using 24-hour format internally
+        =================================== */
+        const prayerSchedule = {
+            Fajr: "04:51",
+            Dhuhr: "12:15",
+            Asr: "15:45",
+            Maghrib: "17:32",
+            Isha: "19:00"
+        };
+
+        const prayerOrder = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+
+        /* ===================================
+           Hijri Date Configuration
+           Simple approximate calculation
+        =================================== */
+        const hijriMonths = [
+            "Muharram", "Safar", "Rabi' I", "Rabi' II",
+            "Jumada I", "Jumada II", "Rajab", "Sha'ban",
+            "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"
+        ];
+
+        /* ===================================
+           Utility Functions
+        =================================== */
+
+        /**
+         * Convert 24-hour time string to 12-hour format
+         * @param {string} time24 - Time in "HH:MM" format
+         * @returns {object} - { time: "H:MM", period: "AM/PM" }
+         */
+        function convert24to12Hour(time24) {
+            const [hours, minutes] = time24.split(':').map(Number);
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const hours12 = hours % 12 || 12;
+            return {
+                time: `${hours12}:${minutes.toString().padStart(2, '0')}`,
+                period: period
+            };
+        }
+
+        /**
+         * Convert time string to minutes since midnight
+         * @param {string} time - Time in "HH:MM" format
+         * @returns {number} - Minutes since midnight
+         */
+        function timeToMinutes(time) {
+            const [hours, minutes] = time.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        /**
+         * Get current time in minutes since midnight
+         * @returns {number} - Current minutes since midnight
+         */
+        function getCurrentMinutes() {
+            const now = new Date();
+            return now.getHours() * 60 + now.getMinutes();
+        }
+
+        /**
+         * Get the current prayer based on system time
+         * @returns {string} - Name of the current prayer
+         */
+        function getCurrentPrayer() {
+            const currentMinutes = getCurrentMinutes();
+            
+            for (let i = prayerOrder.length - 1; i >= 0; i--) {
+                const prayerTime = timeToMinutes(prayerSchedule[prayerOrder[i]]);
+                if (currentMinutes >= prayerTime) {
+                    return prayerOrder[i];
+                }
+            }
+            
+            // Before Fajr, current prayer is Isha (from previous day)
+            return "Isha";
+        }
+
+        /**
+         * Get the next upcoming prayer
+         * @returns {object} - { name: string, time: string, isNextDay: boolean }
+         */
+        function getNextPrayer() {
+            const currentMinutes = getCurrentMinutes();
+            
+            for (let i = 0; i < prayerOrder.length; i++) {
+                const prayerTime = timeToMinutes(prayerSchedule[prayerOrder[i]]);
+                if (currentMinutes < prayerTime) {
+                    return {
+                        name: prayerOrder[i],
+                        time: prayerSchedule[prayerOrder[i]],
+                        isNextDay: false
+                    };
+                }
+            }
+            
+            // After Isha, next prayer is Fajr (next day)
+            return {
+                name: "Fajr",
+                time: prayerSchedule.Fajr,
+                isNextDay: true
+            };
+        }
+
+        /**
+         * Calculate countdown to next prayer
+         * @returns {string} - Formatted countdown "HH:MM:SS"
+         */
+        function calculateCountdown() {
+            const now = new Date();
+            const nextPrayer = getNextPrayer();
+            const [hours, minutes] = nextPrayer.time.split(':').map(Number);
+            
+            let targetTime = new Date();
+            targetTime.setHours(hours, minutes, 0, 0);
+            
+            // If next prayer is tomorrow
+            if (nextPrayer.isNextDay) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+            
+            const diff = targetTime - now;
+            
+            if (diff <= 0) {
+                return "00:00:00";
+            }
+            
+            const totalSeconds = Math.floor(diff / 1000);
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        /**
+         * Calculate approximate Hijri date
+         * @returns {string} - Formatted Hijri date string
+         */
+        function getHijriDate() {
+            const today = new Date();
+            
+            // Hijri epoch: July 16, 622 CE (Julian) / July 19, 622 CE (Gregorian)
+            const hijriEpoch = new Date(622, 6, 19);
+            const daysSinceEpoch = Math.floor((today - hijriEpoch) / (1000 * 60 * 60 * 24));
+            
+            // Average Hijri year in days (approximately 354.36667)
+            const hijriYearDays = 354.36667;
+            const hijriMonthDays = 29.53059;
+            
+            const hijriYear = Math.floor(daysSinceEpoch / hijriYearDays) + 1;
+            const daysIntoYear = daysSinceEpoch % Math.floor(hijriYearDays);
+            const hijriMonth = Math.floor(daysIntoYear / hijriMonthDays);
+            const hijriDay = Math.floor(daysIntoYear % hijriMonthDays) + 1;
+            
+            return `${hijriMonths[hijriMonth]} ${hijriDay}, ${hijriYear} AH`;
+        }
+
+        /* ===================================
+           DOM Update Functions
+        =================================== */
+        let lastPrayerName = '';
+
+        function updatePrayerDisplay() {
+            const nextPrayer = getNextPrayer();
+            const timeFormatted = convert24to12Hour(nextPrayer.time);
+            
+            const prayerNameEl = document.getElementById('prayerName');
+            const prayerTimeEl = document.getElementById('prayerTime');
+            const prayerInfoEl = document.getElementById('prayerInfo');
+            
+            // Check if prayer has changed for animation
+            if (lastPrayerName !== nextPrayer.name) {
+                if (lastPrayerName !== '') {
+                    // Trigger fade animation
+                    prayerInfoEl.classList.add('changing');
+                    
+                    setTimeout(() => {
+                        prayerNameEl.textContent = nextPrayer.name;
+                        prayerTimeEl.innerHTML = `${timeFormatted.time}<span class="ampm">${timeFormatted.period}</span>`;
+                        prayerInfoEl.classList.remove('changing');
+                    }, 300);
+                } else {
+                    // Initial load - no animation
+                    prayerNameEl.textContent = nextPrayer.name;
+                    prayerTimeEl.innerHTML = `${timeFormatted.time}<span class="ampm">${timeFormatted.period}</span>`;
+                }
+                lastPrayerName = nextPrayer.name;
+            }
+        }
+
+        function updateCountdown() {
+            const countdownEl = document.getElementById('countdown');
+            countdownEl.textContent = calculateCountdown();
+        }
+
+        function updateHijriDate() {
+            const hijriDateEl = document.getElementById('hijriDate');
+            hijriDateEl.textContent = getHijriDate();
+        }
+
+        /* ===================================
+           Initialization
+        =================================== */
+        function init() {
+            // Initial updates
+            updateHijriDate();
+            updatePrayerDisplay();
+            updateCountdown();
+            
+            // Update countdown every second
+            setInterval(() => {
+                updateCountdown();
+                updatePrayerDisplay(); // Check for prayer change
+            }, 1000);
+            
+            // Update Hijri date at midnight
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            const msUntilMidnight = tomorrow - now;
+            
+            setTimeout(() => {
+                updateHijriDate();
+                setInterval(updateHijriDate, 24 * 60 * 60 * 1000);
+            }, msUntilMidnight);
+        }
+
+        // Start when DOM is ready
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
