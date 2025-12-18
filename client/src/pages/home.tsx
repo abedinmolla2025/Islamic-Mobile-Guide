@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
+import { AdBanner } from "@/components/AdBanner";
 import { cn } from "@/lib/utils";
 import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
+import { initAdMob } from "@/lib/admob";
 import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
 
 const features = [
@@ -26,6 +28,7 @@ export default function Home() {
   const [showAllPrayers, setShowAllPrayers] = useState(false);
 
   useEffect(() => {
+    initAdMob();
     initializePrayerTimes();
   }, []);
 
