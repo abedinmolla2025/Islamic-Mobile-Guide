@@ -8,7 +8,7 @@ import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type Pr
 import { type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
 import { initAdMob } from "@/lib/admob";
-import prayingManImg from "@assets/—Pngtree—muslim_man_worshiping_in_3d_20961893_1765983317522.png";
+import prayingManImg from "@assets/praying_man.png";
 
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran" },
@@ -174,7 +174,8 @@ export default function Home() {
                   <img 
                     src={prayingManImg} 
                     alt="" 
-                    className="w-28 h-28 object-contain drop-shadow-2xl opacity-95" 
+                    loading="lazy"
+                    className="w-28 h-28 object-contain drop-shadow-2xl opacity-95 scale-x-[-1]" 
                   />
                 </div>
                 
