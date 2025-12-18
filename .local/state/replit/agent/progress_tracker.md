@@ -34,6 +34,15 @@ OR
 - App Name: Noor - Islamic Companion
 - Version: 1.0.0
 
+## Image Optimization & Blending (December 18, 2025)
+[x] Switched from 2.6MB to 140KB optimized image (fast loading)
+[x] Flipped image horizontally with scale-x-[-1]
+[x] Applied blend effect with mix-blend-mode: lighten
+[x] Background becomes invisible - only person shows
+[x] Upgraded to higher quality image (praying_muslim_man.png) for better detail
+[x] Applied full blending with brightness/contrast filters
+[x] Image perfectly integrated into prayer card
+
 ## Google AdMob Monetization Setup (December 18, 2025)
 [x] Installed @capacitor-community/admob package
 [x] Created client/src/lib/admob.ts - Complete AdMob integration library

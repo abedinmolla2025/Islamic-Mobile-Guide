@@ -8,7 +8,7 @@ import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type Pr
 import { type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
 import { initAdMob } from "@/lib/admob";
-import prayingManImg from "@assets/praying_man.png";
+import prayingManImg from "@assets/praying_muslim_man.png";
 
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran" },
