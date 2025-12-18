@@ -34,6 +34,35 @@ OR
 - App Name: Noor - Islamic Companion
 - Version: 1.0.0
 
+## Quran Audio Player Fixes (December 18, 2025)
+[x] Fixed CORS issues in audio API calls
+[x] Added HTTP to HTTPS conversion for mixed content
+[x] Improved error handling with response checks
+[x] Added fallback for failed audio URLs
+[x] Applied to both getSurahAudio and getAyahAudio functions
+
+### Fixes Applied:
+- Added `mode: 'cors'` to fetch requests
+- Replaced HTTP URLs with HTTPS automatically
+- Added response status validation
+- Filtered out empty audio URLs
+- Better error logging
+
+## Recommended Home Page Components (December 18, 2025)
+[x] Created HOME_PAGE_COMPONENTS.md with 10 advanced features:
+  1. Last Read / Bookmarks Widget
+  2. Daily Ayah of the Day
+  3. Upcoming Duaa/Azkar Alert
+  4. Islamic Calendar Widget
+  5. Quick Stats Dashboard
+  6. Prayer Time Countdown Enhancement
+  7. Zakat Calculator Link
+  8. Notification Settings Card
+  9. Qibla Direction Mini Widget
+  10. Recently Viewed Duas
+
+Priority: Last Read Widget, Daily Ayah, Islamic Calendar
+
 ## Image Optimization & Blending (December 18, 2025)
 [x] Switched from 2.6MB to 140KB optimized image (fast loading)
 [x] Flipped image horizontally with scale-x-[-1]

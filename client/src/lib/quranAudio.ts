@@ -56,15 +56,30 @@ const API_BASE = "https://api.alquran.cloud/v1";
 
 export async function getAudioForSurah(surahNumber: number, reciterId: string = "ar.alafasy"): Promise<string[]> {
   try {
-    const response = await fetch(`${API_BASE}/surah/${surahNumber}/${reciterId}`);
+    const response = await fetch(`${API_BASE}/surah/${surahNumber}/${reciterId}`, {
+      mode: 'cors',
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    
     const data = await response.json();
     
     if (data.code === 200 && data.data?.ayahs) {
-      return data.data.ayahs.map((ayah: { audio: string }) => ayah.audio);
+      return data.data.ayahs
+        .map((ayah: { audio: string }) => {
+          let url = ayah.audio;
+          if (url && url.startsWith('http://')) {
+            url = url.replace('http://', 'https://');
+          }
+          return url;
+        })
+        .filter(url => url);
     }
-    throw new Error("Failed to fetch audio");
+    console.warn("Unexpected API response:", data);
+    return [];
   } catch (error) {
-    console.error("Error fetching audio:", error);
+    console.error("Error fetching audio for surah:", error);
     return [];
   }
 }
@@ -75,11 +90,21 @@ export async function getAudioForAyah(
   reciterId: string = "ar.alafasy"
 ): Promise<string | null> {
   try {
-    const response = await fetch(`${API_BASE}/ayah/${surahNumber}:${ayahNumber}/${reciterId}`);
+    const response = await fetch(`${API_BASE}/ayah/${surahNumber}:${ayahNumber}/${reciterId}`, {
+      mode: 'cors',
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    
     const data = await response.json();
     
     if (data.code === 200 && data.data?.audio) {
-      return data.data.audio;
+      let url = data.data.audio;
+      if (url && url.startsWith('http://')) {
+        url = url.replace('http://', 'https://');
+      }
+      return url;
     }
     return null;
   } catch (error) {
