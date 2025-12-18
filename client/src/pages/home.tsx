@@ -170,15 +170,17 @@ export default function Home() {
                 </div>
 
                 {/* Praying Man Illustration - Positioned Right */}
-                <div className="absolute right-2 bottom-0 z-10" style={{
-                  maskImage: 'linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 40%)',
-                  WebkitMaskImage: 'linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 40%)',
-                }}>
+                <div className="absolute right-2 bottom-0 z-10">
                   <img 
                     src={prayingManImg} 
                     alt="" 
                     loading="lazy"
-                    className="w-28 h-28 object-contain drop-shadow-2xl opacity-90 scale-x-[-1] mix-blend-mode-screen" 
+                    className="w-28 h-28 object-contain drop-shadow-2xl scale-x-[-1]" 
+                    style={{
+                      mixBlendMode: 'lighten',
+                      opacity: 0.85,
+                      filter: 'brightness(1.1) contrast(1.1)',
+                    }}
                   />
                 </div>
                 
