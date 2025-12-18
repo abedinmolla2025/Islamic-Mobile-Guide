@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { getSurahWithTranslation, AVAILABLE_TRANSLATIONS, getTranslationFontClass, type SurahDetail } from "@/lib/quranApi";
+import { getAudioForSurah, getStoredAudioPreferences } from "@/lib/quranAudio";
+import QuranAudioPlayer from "@/components/QuranAudioPlayer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,18 +14,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, BookOpen, Globe, ChevronUp } from "lucide-react";
+import { ArrowLeft, BookOpen, Globe, ChevronUp, Play, Pause, Headphones } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
 export default function SurahPage() {
   const params = useParams();
   const surahNumber = parseInt(params.number || "1", 10);
+  const ayahRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   
   const [selectedTranslation, setSelectedTranslation] = useState(() => {
     return localStorage.getItem("quran_translation") || "en.sahih";
   });
   
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showAudioPlayer, setShowAudioPlayer] = useState(false);
+  const [currentPlayingAyah, setCurrentPlayingAyah] = useState<number | null>(null);
+  const [audioUrls, setAudioUrls] = useState<string[]>([]);
+  const [isLoadingAudio, setIsLoadingAudio] = useState(false);
+  const [selectedReciter, setSelectedReciter] = useState(() => {
+    const prefs = getStoredAudioPreferences();
+    return prefs.currentReciter || "ar.alafasy";
+  });
 
   useEffect(() => {
     localStorage.setItem("quran_translation", selectedTranslation);
@@ -34,6 +45,25 @@ export default function SurahPage() {
     queryFn: () => getSurahWithTranslation(surahNumber, selectedTranslation),
     staleTime: 1000 * 60 * 30,
   });
+
+  useEffect(() => {
+    async function loadAudio() {
+      setIsLoadingAudio(true);
+      const urls = await getAudioForSurah(surahNumber, selectedReciter);
+      setAudioUrls(urls);
+      setIsLoadingAudio(false);
+      setCurrentPlayingAyah(null);
+    }
+    loadAudio();
+  }, [surahNumber, selectedReciter]);
+  
+  const handleReciterChange = useCallback((reciterId: string) => {
+    setSelectedReciter(reciterId);
+    localStorage.setItem("quran_audio_preferences", JSON.stringify({
+      ...getStoredAudioPreferences(),
+      currentReciter: reciterId,
+    }));
+  }, []);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const scrollTop = e.currentTarget.scrollTop;
@@ -46,6 +76,18 @@ export default function SurahPage() {
       scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  const scrollToAyah = useCallback((ayahNumber: number) => {
+    const ayahElement = ayahRefs.current.get(ayahNumber);
+    if (ayahElement) {
+      ayahElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, []);
+
+  const handleAyahChange = useCallback((ayahNumber: number) => {
+    setCurrentPlayingAyah(ayahNumber);
+    scrollToAyah(ayahNumber);
+  }, [scrollToAyah]);
 
   const currentTranslation = AVAILABLE_TRANSLATIONS.find(t => t.identifier === selectedTranslation);
 
@@ -72,27 +114,39 @@ export default function SurahPage() {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
             </Link>
-            
-            <Select value={selectedTranslation} onValueChange={setSelectedTranslation}>
-              <SelectTrigger 
-                className="w-[180px] bg-white/10 border-0 text-white text-sm"
-                data-testid="select-translation"
+
+            <div className="flex items-center gap-2">
+              <Button
+                variant={showAudioPlayer ? "default" : "ghost"}
+                size="icon"
+                onClick={() => setShowAudioPlayer(!showAudioPlayer)}
+                className={showAudioPlayer ? "bg-[#D4AF37] text-white" : "text-white"}
+                data-testid="button-toggle-audio"
               >
-                <Globe className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Translation" />
-              </SelectTrigger>
-              <SelectContent>
-                {AVAILABLE_TRANSLATIONS.map((translation) => (
-                  <SelectItem 
-                    key={translation.identifier} 
-                    value={translation.identifier}
-                    data-testid={`translation-${translation.identifier}`}
-                  >
-                    {translation.englishName}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                <Headphones className="w-5 h-5" />
+              </Button>
+              
+              <Select value={selectedTranslation} onValueChange={setSelectedTranslation}>
+                <SelectTrigger 
+                  className="w-[140px] bg-white/10 border-0 text-white text-sm"
+                  data-testid="select-translation"
+                >
+                  <Globe className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Translation" />
+                </SelectTrigger>
+                <SelectContent>
+                  {AVAILABLE_TRANSLATIONS.map((translation) => (
+                    <SelectItem 
+                      key={translation.identifier} 
+                      value={translation.identifier}
+                      data-testid={`translation-${translation.identifier}`}
+                    >
+                      {translation.englishName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {isLoading ? (
@@ -118,6 +172,19 @@ export default function SurahPage() {
           )}
         </div>
 
+        {showAudioPlayer && surah && (
+          <div className="px-4 mb-4">
+            <QuranAudioPlayer
+              audioUrls={audioUrls}
+              surahNumber={surahNumber}
+              totalAyahs={surah.numberOfAyahs}
+              selectedReciter={selectedReciter}
+              onReciterChange={handleReciterChange}
+              onAyahChange={handleAyahChange}
+            />
+          </div>
+        )}
+
         {surahNumber !== 9 && surahNumber !== 1 && (
           <div className="text-center py-4 px-4">
             <p 
@@ -142,13 +209,37 @@ export default function SurahPage() {
               ))
             ) : surah?.ayahs.map((ayah) => (
               <div 
-                key={ayah.numberInSurah} 
-                className="bg-white/5 rounded-xl p-4"
+                key={ayah.numberInSurah}
+                ref={(el) => {
+                  if (el) ayahRefs.current.set(ayah.numberInSurah, el);
+                }}
+                className={`bg-white/5 rounded-xl p-4 transition-all duration-300 ${
+                  currentPlayingAyah === ayah.numberInSurah 
+                    ? "ring-2 ring-[#D4AF37] bg-[#D4AF37]/10" 
+                    : ""
+                }`}
                 data-testid={`ayah-${ayah.numberInSurah}`}
               >
                 <div className="flex items-start justify-between mb-3">
-                  <div className="w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-[#D4AF37] font-bold text-xs">{ayah.numberInSurah}</span>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                      currentPlayingAyah === ayah.numberInSurah 
+                        ? "bg-[#D4AF37] text-white" 
+                        : "bg-[#D4AF37]/20"
+                    }`}>
+                      <span className={`font-bold text-xs ${
+                        currentPlayingAyah === ayah.numberInSurah ? "text-white" : "text-[#D4AF37]"
+                      }`}>
+                        {ayah.numberInSurah}
+                      </span>
+                    </div>
+                    {currentPlayingAyah === ayah.numberInSurah && (
+                      <div className="flex items-center gap-1">
+                        <div className="w-1 h-3 bg-[#D4AF37] rounded-full animate-pulse" />
+                        <div className="w-1 h-4 bg-[#D4AF37] rounded-full animate-pulse delay-75" />
+                        <div className="w-1 h-2 bg-[#D4AF37] rounded-full animate-pulse delay-150" />
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-center gap-2 text-white/40 text-xs">
                     <span>Juz {ayah.juz}</span>
