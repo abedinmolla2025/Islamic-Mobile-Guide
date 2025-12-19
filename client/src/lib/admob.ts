@@ -10,10 +10,12 @@ export const ADMOB_CONFIG = {
 
 export const initAdMob = async () => {
   try {
-    await AdMob.initialize();
-    console.log('AdMob initialized');
+    if (typeof AdMob !== 'undefined' && AdMob.initialize) {
+      await AdMob.initialize();
+      console.log('AdMob initialized');
+    }
   } catch (error) {
-    console.error('AdMob init error:', error);
+    console.log('AdMob init error (expected in development):', error);
   }
 };
 
