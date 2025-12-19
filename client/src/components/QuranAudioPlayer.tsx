@@ -97,7 +97,6 @@ export default function QuranAudioPlayer({
     const handleCanPlay = () => setIsLoading(false);
     const handleLoadedMetadata = () => setDuration(audio.duration);
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
-    const handleEnded = () => handleTrackEnd();
     const handleError = () => {
       setIsLoading(false);
       console.error("Audio error");
@@ -107,7 +106,6 @@ export default function QuranAudioPlayer({
     audio.addEventListener("canplay", handleCanPlay);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
     audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("ended", handleEnded);
     audio.addEventListener("error", handleError);
 
     return () => {
@@ -115,7 +113,6 @@ export default function QuranAudioPlayer({
       audio.removeEventListener("canplay", handleCanPlay);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
       audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("error", handleError);
     };
   }, []);
@@ -163,6 +160,18 @@ export default function QuranAudioPlayer({
       setIsPlaying(false);
     }
   }, [playbackMode, currentAyah, totalAyahs, playAyah]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => handleTrackEnd();
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, [handleTrackEnd]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
