@@ -136,6 +136,18 @@ export default function QuranAudioPlayer({
     saveAudioPreferences({ volume, playbackSpeed, playbackMode, currentReciter: selectedReciter });
   }, [volume, playbackSpeed, playbackMode, selectedReciter]);
 
+  const playAyah = useCallback((ayahNumber: number) => {
+    if (!audioRef.current || !audioUrls[ayahNumber - 1]) return;
+    
+    setCurrentAyah(ayahNumber);
+    audioRef.current.src = audioUrls[ayahNumber - 1];
+    audioRef.current.playbackRate = playbackSpeed;
+    audioRef.current.volume = isMuted ? 0 : volume;
+    audioRef.current.play();
+    setIsPlaying(true);
+    onAyahChange?.(ayahNumber);
+  }, [audioUrls, playbackSpeed, volume, isMuted, onAyahChange]);
+
   const handleTrackEnd = useCallback(() => {
     if (playbackMode === "repeat-one") {
       audioRef.current?.play();
@@ -151,18 +163,6 @@ export default function QuranAudioPlayer({
       setIsPlaying(false);
     }
   }, [playbackMode, currentAyah, totalAyahs, playAyah]);
-
-  const playAyah = useCallback((ayahNumber: number) => {
-    if (!audioRef.current || !audioUrls[ayahNumber - 1]) return;
-    
-    setCurrentAyah(ayahNumber);
-    audioRef.current.src = audioUrls[ayahNumber - 1];
-    audioRef.current.playbackRate = playbackSpeed;
-    audioRef.current.volume = isMuted ? 0 : volume;
-    audioRef.current.play();
-    setIsPlaying(true);
-    onAyahChange?.(ayahNumber);
-  }, [audioUrls, playbackSpeed, volume, isMuted, onAyahChange]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
