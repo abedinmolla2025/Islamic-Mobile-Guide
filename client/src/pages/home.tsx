@@ -157,21 +157,8 @@ export default function Home() {
             <div className="p-4 pt-6">
               {/* Premium Prayer Card - WeMuslim Style */}
               <div className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl overflow-hidden shadow-xl">
-                {/* Falling Light Animation Container */}
-                <div className="falling-light-container">
-                  {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-                    <div
-                      key={i}
-                      className="light-particle animate-falling-light"
-                      style={{
-                        '--left': `${10 + i * 12}%`,
-                        '--tx': `${(i % 2 === 0 ? -1 : 1) * (Math.random() * 20)}px`,
-                        '--delay': `${i * 0.3}s`,
-                        animationDelay: `${i * 0.3}s`,
-                      } as React.CSSProperties}
-                    />
-                  ))}
-                </div>
+                {/* Golden Shimmer Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent animate-shimmer-glow rounded-3xl pointer-events-none"></div>
 
                 {/* Subtle Background Pattern */}
                 <div className="absolute inset-0 opacity-[0.08]">
