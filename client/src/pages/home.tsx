@@ -8,6 +8,7 @@ import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type Pr
 import { type HijriDate } from "@/lib/hijri";
 import { storage } from "@/lib/storage";
 import { initAdMob } from "@/lib/admob";
+import { getIslamicCelebration, type Celebration } from "@/lib/islamicCelebrations";
 import prayingManImg from "@assets/praying_muslim_man.png";
 
 const features = [
@@ -26,10 +27,12 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [showAllPrayers, setShowAllPrayers] = useState(false);
+  const [celebration, setCelebration] = useState<Celebration | null>(null);
 
   useEffect(() => {
     initAdMob();
     initializePrayerTimes();
+    setCelebration(getIslamicCelebration());
   }, []);
 
   useEffect(() => {
@@ -189,6 +192,15 @@ export default function Home() {
                 
                 {/* Card Content */}
                 <div className="relative z-20 p-6">
+                  {/* Islamic Celebration Banner */}
+                  {celebration && (
+                    <div className="mb-4 bg-amber-300/20 backdrop-blur-sm border border-amber-200/30 rounded-lg px-3 py-2">
+                      <p className="text-amber-50 text-sm font-semibold text-center">
+                        {celebration.bengaliName}
+                      </p>
+                    </div>
+                  )}
+
                   {/* Location & Date - Minimal Header */}
                   <div className="flex items-center gap-2 mb-6">
                     <MapPin className="w-4 h-4 text-white/70" />
