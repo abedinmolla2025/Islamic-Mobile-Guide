@@ -118,7 +118,7 @@ export default function QuranAudioPlayer({
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("error", handleError);
     };
-  }, []);
+  }, [handleTrackEnd]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -150,7 +150,7 @@ export default function QuranAudioPlayer({
     } else {
       setIsPlaying(false);
     }
-  }, [playbackMode, currentAyah, totalAyahs]);
+  }, [playbackMode, currentAyah, totalAyahs, playAyah]);
 
   const playAyah = useCallback((ayahNumber: number) => {
     if (!audioRef.current || !audioUrls[ayahNumber - 1]) return;
