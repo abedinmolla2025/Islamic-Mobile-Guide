@@ -219,6 +219,25 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Feature Icons */}
+            <div className="px-4 mb-6">
+              <div className="flex justify-between gap-2">
+                {features.map((feature, idx) => (
+                  <Link key={idx} href={feature.path}>
+                    <div 
+                      className="flex flex-col items-center cursor-pointer group"
+                      data-testid={`feature-${feature.label.toLowerCase()}`}
+                    >
+                      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-md transition-all">
+                        <span className="text-2xl">{feature.emoji}</span>
+                      </div>
+                      <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             {/* Animated Audio Player Button */}
             <div className="px-4 mb-6">
               <Link href="/quran">
@@ -247,25 +266,6 @@ export default function Home() {
                   </div>
                 </div>
               </Link>
-            </div>
-
-            {/* Feature Icons */}
-            <div className="px-4 mb-6">
-              <div className="flex justify-between gap-2">
-                {features.map((feature, idx) => (
-                  <Link key={idx} href={feature.path}>
-                    <div 
-                      className="flex flex-col items-center cursor-pointer group"
-                      data-testid={`feature-${feature.label.toLowerCase()}`}
-                    >
-                      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-md transition-all">
-                        <span className="text-2xl">{feature.emoji}</span>
-                      </div>
-                      <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
             </div>
 
             {/* Prayer Times List */}
