@@ -408,4 +408,45 @@
   .font-translation {
     font-family: 'Lora', 'Outfit', serif;
   }
+
+  @keyframes fallingLight {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px) translateX(var(--tx));
+      filter: blur(8px);
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(400px) translateX(var(--tx));
+      filter: blur(12px);
+    }
+  }
+
+  .light-particle {
+    position: absolute;
+    width: 4px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    border-radius: 50%;
+    pointer-events: none;
+    left: var(--left);
+  }
+
+  .animate-falling-light {
+    animation: fallingLight 3s ease-in infinite;
+  }
+
+  .falling-light-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 1.5rem;
+  }
 }
