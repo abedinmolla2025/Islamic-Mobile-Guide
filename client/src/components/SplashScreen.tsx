@@ -25,31 +25,27 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       <div className="flex flex-col items-center justify-center gap-8">
         {/* Animated Logo Container */}
         <div className="animate-logo-rise">
-          {/* Logo Circle Background */}
-          <div className="relative w-32 h-32 md:w-40 md:h-40">
-            {/* Outer Glow Ring - Enhanced */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-300 via-emerald-400 to-teal-500 blur-2xl opacity-70 animate-pulse"></div>
+          {/* Professional Logo with Glow */}
+          <div className="relative w-40 h-40 md:w-52 md:h-52">
+            {/* Golden Glow Background */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500 blur-3xl opacity-60 animate-pulse"></div>
             
-            {/* Second Ring - Rotating */}
-            <div className="absolute inset-2 rounded-full border-4 border-emerald-300 dark:border-emerald-600 opacity-40 animate-spin-slow"></div>
-            
-            {/* Main Logo Circle - Enhanced Gradient */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500 via-green-500 to-teal-600 dark:from-emerald-600 dark:via-green-600 dark:to-teal-700 shadow-2xl flex items-center justify-center border-2 border-amber-300 dark:border-amber-400">
-              {/* Crescent Moon Icon - Larger */}
-              <div className="text-7xl md:text-8xl animate-bounce-logo drop-shadow-lg">☪️</div>
-            </div>
-
-            {/* Shimmer Effect - Enhanced */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white dark:via-gray-100 to-transparent opacity-30 animate-shimmer"></div>
+            {/* Logo Image */}
+            <img
+              src="/noor-logo.png"
+              alt="Noor Logo"
+              className="relative w-full h-full object-cover rounded-3xl shadow-2xl drop-shadow-lg animate-bounce-logo"
+              style={{ 
+                filter: "drop-shadow(0 0 30px rgba(217, 119, 6, 0.5))",
+                animation: "logo-rise 0.8s ease-out"
+              }}
+            />
           </div>
         </div>
 
-        {/* App Name - Enhanced */}
+        {/* App Name - Simplified since logo has text */}
         <div className="animate-text-fade text-center">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent drop-shadow-sm">
-            Noor
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 text-center mt-3 font-medium">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 text-center font-medium">
             Islamic Companion
           </p>
           <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 text-center mt-2">
