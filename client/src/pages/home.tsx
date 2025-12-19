@@ -11,12 +11,12 @@ import { initAdMob } from "@/lib/admob";
 import prayingManImg from "@assets/praying_muslim_man.png";
 
 const features = [
-  { emoji: "📖", label: "Quran", path: "/quran" },
-  { emoji: "🤲", label: "Azkar", path: "/duas" },
-  { emoji: "👶", label: "Names", path: "/names" },
-  { emoji: "🧭", label: "Qibla", path: "/qibla" },
-  { emoji: "📿", label: "Tasbih", path: "/tasbih" },
-  { emoji: "✨", label: "99 Names", path: "/asma-ul-husna" },
+  { emoji: "📖", label: "Quran", path: "/quran", animation: "animate-page-flip" },
+  { emoji: "🤲", label: "Azkar", path: "/duas", animation: "animate-hand-wave" },
+  { emoji: "👶", label: "Names", path: "/names", animation: "animate-smile" },
+  { emoji: "🧭", label: "Qibla", path: "/qibla", animation: "animate-spin-slow" },
+  { emoji: "📿", label: "Tasbih", path: "/tasbih", animation: "animate-bead-roll" },
+  { emoji: "✨", label: "99 Names", path: "/asma-ul-husna", animation: "animate-sparkle" },
 ];
 
 export default function Home() {
@@ -234,7 +234,7 @@ export default function Home() {
                       data-testid={`feature-${feature.label.toLowerCase()}`}
                     >
                       <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
-                        <span className="text-2xl animate-icon-bounce group-hover:animate-icon-spin" style={{ animationDelay: `${idx * 0.1}s` }}>{feature.emoji}</span>
+                        <span className={`text-2xl ${feature.animation}`} style={{ animationDelay: `${idx * 0.1}s` }}>{feature.emoji}</span>
                       </div>
                       <span className="text-xs text-gray-600 font-medium group-hover:text-emerald-600 transition-colors duration-200">{feature.label}</span>
                     </div>
