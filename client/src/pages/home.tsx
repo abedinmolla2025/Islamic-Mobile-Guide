@@ -191,17 +191,24 @@ export default function Home() {
                 </div>
                 
                 {/* Card Content */}
-                <div className="relative z-20 p-6">
+                <div className="relative z-20 p-5">
                   {/* Location & Date / Celebration Header */}
                   {celebration ? (
-                    <div className="mb-6 inline-flex items-center gap-2 bg-amber-300/25 backdrop-blur-md rounded-full px-4 py-2 border border-amber-200/40 animate-pulse">
-                      <div className="w-2 h-2 bg-amber-300 rounded-full animate-bounce"></div>
-                      <span className="text-amber-50 text-sm font-bold">
-                        {celebration.bengaliName}
-                      </span>
+                    <div className="mb-4 animate-celebration">
+                      <div className="inline-flex items-start gap-1.5 bg-amber-300/25 backdrop-blur-md rounded-full px-3 py-1.5 border border-amber-200/40 animate-pulse">
+                        <div className="w-1.5 h-1.5 bg-amber-300 rounded-full animate-bounce mt-0.5 flex-shrink-0"></div>
+                        <div className="flex flex-col gap-0">
+                          <span className="text-amber-50 text-[11px] font-semibold opacity-90 leading-tight">
+                            {celebration.name}
+                          </span>
+                          <span className="text-amber-100 text-xs font-bold leading-tight">
+                            {celebration.bengaliName}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 mb-6">
+                    <div className="flex items-center gap-2 mb-4">
                       <MapPin className="w-4 h-4 text-white/70" />
                       <span className="text-white/90 text-sm font-medium">{location?.city || 'Unknown'}</span>
                       <span className="text-white/40 mx-1">·</span>
@@ -210,20 +217,20 @@ export default function Home() {
                   )}
 
                   {/* Prayer Name - Large & Bold */}
-                  <h2 className="text-4xl font-bold text-white mb-2 tracking-tight">
+                  <h2 className="text-4xl font-bold text-white mb-1 tracking-tight">
                     {nextPrayer?.name || 'Fajr'}
                   </h2>
                   
                   {/* Time Display - Clean */}
-                  <div className="flex items-baseline gap-2 mb-4">
+                  <div className="flex items-baseline gap-2 mb-3">
                     <span className="text-5xl font-bold text-white tracking-tight">{formattedTime.time}</span>
                     <span className="text-xl text-white/80 font-medium">{formattedTime.period}</span>
                   </div>
 
                   {/* Countdown - Subtle */}
-                  <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2">
+                  <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-3 py-1.5">
                     <Clock className="w-4 h-4 text-white/80" />
-                    <span className="text-white/90 text-sm font-medium">
+                    <span className="text-white/90 text-xs font-medium">
                       Next in{' '}
                       <span className="text-white font-bold tabular-nums">
                         {String(countdown.hours).padStart(2, '0')}:{String(countdown.minutes).padStart(2, '0')}:{String(countdown.seconds).padStart(2, '0')}
