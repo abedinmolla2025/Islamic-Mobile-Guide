@@ -116,6 +116,19 @@ export default function SurahPage() {
             </Link>
 
             <div className="flex items-center gap-2">
+              {audioUrls.length > 0 && !showAudioPlayer && (
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => setShowAudioPlayer(true)}
+                  className="bg-gradient-to-r from-[#D4AF37] to-[#e5c158] text-white hover:shadow-lg hover:shadow-[#D4AF37]/50 font-semibold gap-2"
+                  data-testid="button-play-surah"
+                >
+                  <Play className="w-4 h-4 fill-white" />
+                  <span>Play</span>
+                </Button>
+              )}
+              
               <Button
                 variant={showAudioPlayer ? "default" : "ghost"}
                 size="icon"
