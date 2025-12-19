@@ -234,7 +234,7 @@ export default function Home() {
                       data-testid={`feature-${feature.label.toLowerCase()}`}
                     >
                       <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
-                        <span className="text-2xl group-hover:scale-125 transition-transform duration-300">{feature.emoji}</span>
+                        <span className="text-2xl animate-icon-bounce group-hover:animate-icon-spin" style={{ animationDelay: `${idx * 0.1}s` }}>{feature.emoji}</span>
                       </div>
                       <span className="text-xs text-gray-600 font-medium group-hover:text-emerald-600 transition-colors duration-200">{feature.label}</span>
                     </div>
