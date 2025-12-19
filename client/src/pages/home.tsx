@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { AdBanner } from "@/components/AdBanner";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp, Play } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { type HijriDate } from "@/lib/hijri";
@@ -217,6 +217,36 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Animated Audio Player Button */}
+            <div className="px-4 mb-6">
+              <Link href="/quran">
+                <div className="relative group cursor-pointer">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-5 shadow-lg overflow-hidden">
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute top-2 right-2 w-20 h-20 bg-white/30 rounded-full blur-lg animate-pulse" />
+                    </div>
+                    <div className="relative flex items-center justify-between">
+                      <div>
+                        <p className="text-white/90 text-sm font-medium mb-1">Listen to Quran</p>
+                        <h3 className="text-white font-bold text-lg">Audio Recitation</h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="relative w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                          <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                        </div>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1">
+                          <div className="w-1 h-6 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: "0s" }} />
+                          <div className="w-1 h-8 bg-white/40 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
+                          <div className="w-1 h-5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
 
             {/* Feature Icons */}
