@@ -97,25 +97,10 @@ export default function QuranAudioPlayer({
     const handleCanPlay = () => setIsLoading(false);
     const handleLoadedMetadata = () => setDuration(audio.duration);
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const handleEnded = () => handleTrackEnd();
     const handleError = () => {
       setIsLoading(false);
       console.error("Audio error");
-    };
-
-    const handleEnded = () => {
-      if (playbackMode === "repeat-one") {
-        audio.play();
-      } else if (playbackMode === "continuous" || playbackMode === "repeat-surah") {
-        if (currentAyah < totalAyahs) {
-          playAyah(currentAyah + 1);
-        } else if (playbackMode === "repeat-surah") {
-          playAyah(1);
-        } else {
-          setIsPlaying(false);
-        }
-      } else {
-        setIsPlaying(false);
-      }
     };
 
     audio.addEventListener("loadstart", handleLoadStart);
@@ -133,7 +118,7 @@ export default function QuranAudioPlayer({
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("error", handleError);
     };
-  }, [playbackMode, currentAyah, totalAyahs, playAyah]);
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -151,6 +136,21 @@ export default function QuranAudioPlayer({
     saveAudioPreferences({ volume, playbackSpeed, playbackMode, currentReciter: selectedReciter });
   }, [volume, playbackSpeed, playbackMode, selectedReciter]);
 
+  const handleTrackEnd = useCallback(() => {
+    if (playbackMode === "repeat-one") {
+      audioRef.current?.play();
+    } else if (playbackMode === "continuous" || playbackMode === "repeat-surah") {
+      if (currentAyah < totalAyahs) {
+        playAyah(currentAyah + 1);
+      } else if (playbackMode === "repeat-surah") {
+        playAyah(1);
+      } else {
+        setIsPlaying(false);
+      }
+    } else {
+      setIsPlaying(false);
+    }
+  }, [playbackMode, currentAyah, totalAyahs, playAyah]);
 
   const playAyah = useCallback((ayahNumber: number) => {
     if (!audioRef.current || !audioUrls[ayahNumber - 1]) return;
