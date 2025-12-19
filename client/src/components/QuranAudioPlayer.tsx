@@ -240,57 +240,61 @@ export default function QuranAudioPlayer({
   const currentReciterInfo = AVAILABLE_RECITERS.find(r => r.id === selectedReciter);
 
   return (
-    <div className={`bg-white/10 backdrop-blur-md rounded-2xl p-4 ${className}`}>
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center">
-            <Mic2 className="w-4 h-4 text-[#D4AF37]" />
-          </div>
-          <div>
-            <p className="text-white text-sm font-medium" data-testid="text-current-ayah">
-              Ayah {currentAyah} of {totalAyahs}
-            </p>
-            <p className="text-white/50 text-xs">{currentReciterInfo?.name || "Select Reciter"}</p>
-          </div>
-        </div>
-
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="text-white/70 text-xs"
-              data-testid="button-select-reciter"
-            >
-              Change Reciter
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-72 p-2" align="end">
-            <p className="text-sm font-medium mb-2 px-2">Select Reciter</p>
-            <div className="max-h-60 overflow-y-auto space-y-1">
-              {AVAILABLE_RECITERS.map((reciter) => (
-                <button
-                  key={reciter.id}
-                  onClick={() => onReciterChange(reciter.id)}
-                  className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                    selectedReciter === reciter.id
-                      ? "bg-[#D4AF37]/20 text-[#D4AF37]"
-                      : "hover:bg-muted"
-                  }`}
-                  data-testid={`reciter-${reciter.id}`}
-                >
-                  <p className="font-medium">{reciter.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {reciter.arabicName} {reciter.style && `• ${reciter.style}`}
-                  </p>
-                </button>
-              ))}
+    <div className={`bg-gradient-to-br from-[#1F4037] via-[#2d6a64] to-[#1F4037] rounded-3xl p-6 shadow-2xl border border-[#D4AF37]/20 ${className}`}>
+      {/* Header Section */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-full flex items-center justify-center backdrop-blur-md">
+              <Mic2 className="w-6 h-6 text-[#D4AF37]" />
             </div>
-          </PopoverContent>
-        </Popover>
+            <div>
+              <p className="text-white text-lg font-semibold" data-testid="text-current-ayah">
+                Ayah {currentAyah}
+              </p>
+              <p className="text-white/70 text-sm">{currentReciterInfo?.name || "Select Reciter"}</p>
+            </div>
+          </div>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button 
+                variant="outline"
+                size="sm"
+                className="text-[#D4AF37] border-[#D4AF37]/50 hover:bg-[#D4AF37]/10"
+                data-testid="button-select-reciter"
+              >
+                Change Reciter
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-3 backdrop-blur-md" align="end">
+              <p className="text-sm font-semibold mb-3 text-white">Select Reciter</p>
+              <div className="max-h-64 overflow-y-auto space-y-2">
+                {AVAILABLE_RECITERS.map((reciter) => (
+                  <button
+                    key={reciter.id}
+                    onClick={() => onReciterChange(reciter.id)}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-200 ${
+                      selectedReciter === reciter.id
+                        ? "bg-[#D4AF37] text-[#1F4037] font-medium"
+                        : "bg-white/5 text-white hover:bg-white/10"
+                    }`}
+                    data-testid={`reciter-${reciter.id}`}
+                  >
+                    <p className="font-medium">{reciter.name}</p>
+                    <p className="text-xs opacity-70">
+                      {reciter.arabicName} {reciter.style && `• ${reciter.style}`}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
 
-      <div className="mb-3">
+      {/* Progress Bar */}
+      <div className="mb-6 space-y-2">
         <Slider
           value={[currentTime]}
           max={duration || 100}
@@ -299,19 +303,62 @@ export default function QuranAudioPlayer({
           className="cursor-pointer"
           data-testid="slider-progress"
         />
-        <div className="flex justify-between text-xs text-white/50 mt-1">
+        <div className="flex justify-between text-xs text-white/60 font-medium">
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1">
+      {/* Main Controls */}
+      <div className="mb-6 flex items-center justify-center gap-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={previousAyah}
+          disabled={currentAyah <= 1}
+          className="text-white/70 hover:text-white disabled:opacity-30 hover:bg-white/10 h-10 w-10"
+          data-testid="button-previous-ayah"
+        >
+          <SkipBack className="w-5 h-5" />
+        </Button>
+
+        <Button
+          variant="default"
+          onClick={togglePlay}
+          disabled={isLoading || audioUrls.length === 0}
+          className="bg-gradient-to-r from-[#D4AF37] to-[#e5c158] text-[#1F4037] hover:shadow-lg hover:shadow-[#D4AF37]/50 w-16 h-16 rounded-full flex-shrink-0 font-semibold text-lg"
+          data-testid="button-play-pause"
+        >
+          {isLoading ? (
+            <Loader2 className="w-7 h-7 animate-spin" />
+          ) : isPlaying ? (
+            <Pause className="w-7 h-7" />
+          ) : (
+            <Play className="w-7 h-7 ml-0.5" />
+          )}
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={nextAyah}
+          disabled={currentAyah >= totalAyahs}
+          className="text-white/70 hover:text-white disabled:opacity-30 hover:bg-white/10 h-10 w-10"
+          data-testid="button-next-ayah"
+        >
+          <SkipForward className="w-5 h-5" />
+        </Button>
+      </div>
+
+      {/* Secondary Controls */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        {/* Volume Control */}
+        <div className="flex items-center gap-2 bg-white/5 rounded-lg p-3 backdrop-blur-sm">
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleMute}
-            className="text-white/70"
+            className="text-white/70 hover:text-white flex-shrink-0 h-8 w-8"
             data-testid="button-mute"
           >
             {isMuted || volume === 0 ? (
@@ -325,105 +372,76 @@ export default function QuranAudioPlayer({
             max={1}
             step={0.01}
             onValueChange={handleVolumeChange}
-            className="w-16 cursor-pointer"
+            className="flex-1 cursor-pointer"
             data-testid="slider-volume"
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={previousAyah}
-            disabled={currentAyah <= 1}
-            className="text-white disabled:opacity-30"
-            data-testid="button-previous-ayah"
-          >
-            <SkipBack className="w-5 h-5" />
-          </Button>
-
-          <Button
-            variant="default"
-            size="icon"
-            onClick={togglePlay}
-            disabled={isLoading || audioUrls.length === 0}
-            className="bg-[#D4AF37] text-white w-12 h-12 rounded-full"
-            data-testid="button-play-pause"
-          >
-            {isLoading ? (
-              <Loader2 className="w-6 h-6 animate-spin" />
-            ) : isPlaying ? (
-              <Pause className="w-6 h-6" />
-            ) : (
-              <Play className="w-6 h-6 ml-0.5" />
-            )}
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={nextAyah}
-            disabled={currentAyah >= totalAyahs}
-            className="text-white disabled:opacity-30"
-            data-testid="button-next-ayah"
-          >
-            <SkipForward className="w-5 h-5" />
-          </Button>
-        </div>
-
-        <div className="flex items-center gap-1">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white/70"
-                data-testid="button-playback-speed"
-              >
-                <Gauge className="w-4 h-4" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-32 p-2" align="end">
-              <p className="text-xs font-medium mb-2 px-2">Speed</p>
+        {/* Speed Control */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="ghost"
+              className="text-white/70 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg h-auto py-3"
+              data-testid="button-playback-speed"
+            >
+              <Gauge className="w-4 h-4 mr-2" />
+              <span className="text-sm font-medium">{playbackSpeed}x</span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-40 p-2 backdrop-blur-md" align="center">
+            <p className="text-xs font-semibold mb-2 px-2 text-white">Playback Speed</p>
+            <div className="space-y-1">
               {PLAYBACK_SPEEDS.map((speed) => (
                 <button
                   key={speed}
                   onClick={() => setPlaybackSpeed(speed)}
-                  className={`w-full text-left px-3 py-1.5 rounded-md text-sm ${
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all ${
                     playbackSpeed === speed
-                      ? "bg-[#D4AF37]/20 text-[#D4AF37]"
-                      : "hover:bg-muted"
+                      ? "bg-[#D4AF37] text-[#1F4037] font-medium"
+                      : "text-white hover:bg-white/10"
                   }`}
                   data-testid={`speed-${speed}`}
                 >
                   {speed}x
                 </button>
               ))}
-            </PopoverContent>
-          </Popover>
+            </div>
+          </PopoverContent>
+        </Popover>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={cyclePlaybackMode}
-            className="text-white/70"
-            title={getPlaybackModeLabel()}
-            data-testid="button-playback-mode"
-          >
-            {getPlaybackModeIcon()}
-          </Button>
-        </div>
+        {/* Playback Mode */}
+        <Button
+          variant="ghost"
+          onClick={cyclePlaybackMode}
+          className="text-white/70 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg h-auto py-3"
+          title={getPlaybackModeLabel()}
+          data-testid="button-playback-mode"
+        >
+          {getPlaybackModeIcon()}
+          <span className="text-sm font-medium ml-2 hidden sm:inline">{getPlaybackModeLabel()}</span>
+        </Button>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-3 text-xs text-white/50">
-        <span className="flex items-center gap-1">
-          <Gauge className="w-3 h-3" />
-          {playbackSpeed}x
-        </span>
-        <span className="flex items-center gap-1">
-          {getPlaybackModeIcon()}
-          {getPlaybackModeLabel()}
-        </span>
+      {/* Status Bar */}
+      <div className="bg-white/5 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+        <div className="flex items-center justify-between text-xs text-white/70 gap-2 flex-wrap">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></div>
+            <span className="font-medium">{isPlaying ? "Playing" : "Paused"}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="flex items-center gap-1">
+              <Gauge className="w-3 h-3" />
+              {playbackSpeed}x
+            </span>
+            <div className="w-px h-4 bg-white/20"></div>
+            <span className="flex items-center gap-1">
+              {getPlaybackModeIcon()}
+              <span className="hidden sm:inline">{getPlaybackModeLabel()}</span>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
