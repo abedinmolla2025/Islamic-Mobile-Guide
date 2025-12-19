@@ -158,6 +158,15 @@ export default function Home() {
         ) : (
           <>
             <div className="p-4 pt-6">
+              {/* Islamic Celebration Banner - Outside Card */}
+              {celebration && (
+                <div className="mb-3 mx-2 bg-amber-300/20 backdrop-blur-sm border border-amber-200/30 rounded-xl px-3 py-2">
+                  <p className="text-amber-50 text-sm font-semibold text-center">
+                    {celebration.bengaliName}
+                  </p>
+                </div>
+              )}
+
               {/* Premium Prayer Card - WeMuslim Style */}
               <div className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl overflow-hidden shadow-xl">
                 {/* Golden Shimmer Overlay */}
@@ -192,15 +201,6 @@ export default function Home() {
                 
                 {/* Card Content */}
                 <div className="relative z-20 p-6">
-                  {/* Islamic Celebration Banner */}
-                  {celebration && (
-                    <div className="mb-4 bg-amber-300/20 backdrop-blur-sm border border-amber-200/30 rounded-lg px-3 py-2">
-                      <p className="text-amber-50 text-sm font-semibold text-center">
-                        {celebration.bengaliName}
-                      </p>
-                    </div>
-                  )}
-
                   {/* Location & Date - Minimal Header */}
                   <div className="flex items-center gap-2 mb-6">
                     <MapPin className="w-4 h-4 text-white/70" />
