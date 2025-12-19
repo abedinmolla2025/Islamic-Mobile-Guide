@@ -8,11 +8,11 @@ export const ADMOB_CONFIG = {
   rewardedAdUnitId: 'ca-app-pub-3940256099942544/5224354917', // Test rewarded
 };
 
-export const initAdMob = async () => {
+export const initAdMob = () => {
   try {
     if (typeof AdMob !== 'undefined' && AdMob.initialize) {
-      await AdMob.initialize();
-      console.log('AdMob initialized');
+      AdMob.initialize?.();
+      console.log('AdMob init started');
     }
   } catch (error) {
     console.log('AdMob init error (expected in development):', error);
