@@ -225,13 +225,18 @@ export default function Home() {
                 {features.map((feature, idx) => (
                   <Link key={idx} href={feature.path}>
                     <div 
-                      className="flex flex-col items-center cursor-pointer group"
+                      className="flex flex-col items-center cursor-pointer group animate-fade-in"
+                      style={{
+                        animationDelay: `${idx * 0.1}s`,
+                        opacity: 0,
+                        animation: `fadeIn 0.6s ease-out ${idx * 0.1}s forwards`
+                      }}
                       data-testid={`feature-${feature.label.toLowerCase()}`}
                     >
-                      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-md transition-all">
-                        <span className="text-2xl">{feature.emoji}</span>
+                      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+                        <span className="text-2xl group-hover:scale-125 transition-transform duration-300">{feature.emoji}</span>
                       </div>
-                      <span className="text-xs text-gray-600 font-medium">{feature.label}</span>
+                      <span className="text-xs text-gray-600 font-medium group-hover:text-emerald-600 transition-colors duration-200">{feature.label}</span>
                     </div>
                   </Link>
                 ))}
