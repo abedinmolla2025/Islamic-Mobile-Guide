@@ -158,15 +158,6 @@ export default function Home() {
         ) : (
           <>
             <div className="p-4 pt-6">
-              {/* Islamic Celebration Banner - Outside Card */}
-              {celebration && (
-                <div className="mb-3 mx-2 bg-amber-300/20 backdrop-blur-sm border border-amber-200/30 rounded-xl px-3 py-2">
-                  <p className="text-amber-50 text-sm font-semibold text-center">
-                    {celebration.bengaliName}
-                  </p>
-                </div>
-              )}
-
               {/* Premium Prayer Card - WeMuslim Style */}
               <div className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl overflow-hidden shadow-xl">
                 {/* Golden Shimmer Overlay */}
@@ -201,13 +192,22 @@ export default function Home() {
                 
                 {/* Card Content */}
                 <div className="relative z-20 p-6">
-                  {/* Location & Date - Minimal Header */}
-                  <div className="flex items-center gap-2 mb-6">
-                    <MapPin className="w-4 h-4 text-white/70" />
-                    <span className="text-white/90 text-sm font-medium">{location?.city || 'Unknown'}</span>
-                    <span className="text-white/40 mx-1">·</span>
-                    <span className="text-white/70 text-sm">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
-                  </div>
+                  {/* Location & Date / Celebration Header */}
+                  {celebration ? (
+                    <div className="mb-6 inline-flex items-center gap-2 bg-amber-300/25 backdrop-blur-md rounded-full px-4 py-2 border border-amber-200/40 animate-pulse">
+                      <div className="w-2 h-2 bg-amber-300 rounded-full animate-bounce"></div>
+                      <span className="text-amber-50 text-sm font-bold">
+                        {celebration.bengaliName}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 mb-6">
+                      <MapPin className="w-4 h-4 text-white/70" />
+                      <span className="text-white/90 text-sm font-medium">{location?.city || 'Unknown'}</span>
+                      <span className="text-white/40 mx-1">·</span>
+                      <span className="text-white/70 text-sm">{hijriDate?.day} {hijriDate?.month}, {hijriDate?.year}</span>
+                    </div>
+                  )}
 
                   {/* Prayer Name - Large & Bold */}
                   <h2 className="text-4xl font-bold text-white mb-2 tracking-tight">
