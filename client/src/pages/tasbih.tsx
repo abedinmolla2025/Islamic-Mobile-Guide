@@ -19,6 +19,7 @@ export default function Tasbih() {
   const [selectedDhikr, setSelectedDhikr] = useState(0);
   const [vibrate, setVibrate] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  const BEADS_IN_MALA = 99;
 
   useEffect(() => {
     const savedCount = storage.getTasbihCount();
@@ -42,6 +43,24 @@ export default function Tasbih() {
 
   const progress = Math.min((count / target) * 100, 100);
   const currentDhikr = DHIKR_OPTIONS[selectedDhikr];
+
+  // Generate bead positions in a circle
+  const generateBeadPositions = () => {
+    const beads = [];
+    const radius = 120;
+    const centerX = 150;
+    const centerY = 150;
+    
+    for (let i = 0; i < BEADS_IN_MALA; i++) {
+      const angle = (i / BEADS_IN_MALA) * Math.PI * 2;
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
+      beads.push({ id: i, x, y, active: i < count });
+    }
+    return beads;
+  };
+
+  const beads = generateBeadPositions();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0d4a3a] via-[#0f5245] to-[#0a3d30] pb-24">
@@ -117,38 +136,70 @@ export default function Tasbih() {
           <p className="text-white/70">{currentDhikr.transliteration}</p>
         </div>
 
-        <div className="relative flex items-center justify-center mb-8">
-          <div className="relative w-64 h-64">
-            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+        <div className="relative flex flex-col items-center justify-center mb-8">
+          {/* Prayer Beads Mala Visualization */}
+          <div className="relative w-80 h-80 flex items-center justify-center mb-6">
+            <svg className="w-full h-full" viewBox="0 0 300 300">
+              {/* Necklace string */}
               <circle
-                cx="50"
-                cy="50"
-                r="45"
+                cx="150"
+                cy="150"
+                r="120"
                 fill="none"
-                stroke="rgba(255,255,255,0.1)"
-                strokeWidth="6"
+                stroke="rgba(212, 175, 55, 0.3)"
+                strokeWidth="1.5"
+                strokeDasharray="4,2"
               />
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="#D4AF37"
-                strokeWidth="6"
-                strokeLinecap="round"
-                strokeDasharray={`${progress * 2.83} 283`}
-                className="transition-all duration-300"
-              />
+              
+              {/* Render beads */}
+              {beads.map((bead) => (
+                <g key={bead.id}>
+                  {/* Bead circle */}
+                  <circle
+                    cx={bead.x}
+                    cy={bead.y}
+                    r="6"
+                    fill={bead.active ? "rgba(212, 175, 55, 0.4)" : "#D4AF37"}
+                    stroke={bead.active ? "rgba(212, 175, 55, 0.2)" : "#B8962E"}
+                    strokeWidth="1"
+                    className={bead.active ? "opacity-40" : "opacity-100"}
+                    style={{
+                      transition: "all 0.3s ease-out",
+                      filter: bead.active ? "blur(0.5px)" : "none"
+                    }}
+                  />
+                  {/* Highlight on active beads */}
+                  {!bead.active && (
+                    <circle
+                      cx={bead.x - 1.5}
+                      cy={bead.y - 1.5}
+                      r="2.5"
+                      fill="rgba(255, 255, 255, 0.6)"
+                    />
+                  )}
+                </g>
+              ))}
             </svg>
             
+            {/* Center counter display */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span 
-                className="text-7xl font-bold text-white tabular-nums"
+                className="text-6xl font-bold text-white tabular-nums"
                 data-testid="tasbih-count"
               >
                 {count}
               </span>
               <span className="text-white/50 text-sm mt-1">of {target}</span>
+            </div>
+          </div>
+
+          {/* Progress bar below beads */}
+          <div className="w-full max-w-xs">
+            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#B8962E] transition-all duration-300 rounded-full"
+                style={{ width: `${progress}%` }}
+              />
             </div>
           </div>
         </div>
