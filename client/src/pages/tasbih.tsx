@@ -1,10 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
 import BottomNav from "@/components/BottomNav";
-import { RotateCcw, Minus, Plus, Settings, Volume2, VolumeX } from "lucide-react";
+import { RotateCcw, Settings, Edit2 } from "lucide-react";
 import { storage } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 
 const TASBIH_TARGETS = [33, 99, 100, 500, 1000];
+const BEAD_COLORS = [
+  { name: "Green", bg: "from-[#10b981] to-[#059669]", hex: "#10b981" },
+  { name: "Teal", bg: "from-[#14b8a6] to-[#0d9488]", hex: "#14b8a6" },
+  { name: "Brown", bg: "from-[#92400e] to-[#78350f]", hex: "#92400e" },
+  { name: "Blue", bg: "from-[#3b82f6] to-[#1d4ed8]", hex: "#3b82f6" },
+  { name: "Purple", bg: "from-[#a855f7] to-[#7e22ce]", hex: "#a855f7" },
+];
+
 const DHIKR_OPTIONS = [
   { arabic: "سُبْحَانَ اللهِ", transliteration: "SubhanAllah", meaning: "Glory be to Allah" },
   { arabic: "الْحَمْدُ لِلَّهِ", transliteration: "Alhamdulillah", meaning: "Praise be to Allah" },
@@ -17,9 +25,9 @@ export default function Tasbih() {
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
   const [selectedDhikr, setSelectedDhikr] = useState(0);
+  const [beadColorIdx, setBeadColorIdx] = useState(0);
   const [vibrate, setVibrate] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
-  const BEADS_IN_MALA = 99;
 
   useEffect(() => {
     const savedCount = storage.getTasbihCount();
@@ -41,41 +49,138 @@ export default function Tasbih() {
     storage.setTasbihCount(0);
   };
 
-  const progress = Math.min((count / target) * 100, 100);
+  const rounds = Math.floor(count / target);
+  const currentProgress = count % target;
   const currentDhikr = DHIKR_OPTIONS[selectedDhikr];
+  const selectedColor = BEAD_COLORS[beadColorIdx];
 
-  // Generate bead positions in a circle
-  const generateBeadPositions = () => {
-    const beads = [];
-    const radius = 120;
-    const centerX = 150;
-    const centerY = 150;
-    
-    for (let i = 0; i < BEADS_IN_MALA; i++) {
-      const angle = (i / BEADS_IN_MALA) * Math.PI * 2;
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-      beads.push({ id: i, x, y, active: i < count });
-    }
-    return beads;
-  };
-
-  const beads = generateBeadPositions();
+  // Show 8 beads in the display
+  const VISIBLE_BEADS = 8;
+  const beads = [];
+  const startBead = Math.max(0, currentProgress - 2);
+  
+  for (let i = 0; i < VISIBLE_BEADS; i++) {
+    const beadNum = startBead + i;
+    const isUsed = beadNum < currentProgress;
+    beads.push({ id: beadNum, used: isUsed });
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0d4a3a] via-[#0f5245] to-[#0a3d30] pb-24">
       <div className="max-w-lg mx-auto px-4 pt-6">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold text-white">Tasbih</h1>
-          <button 
-            onClick={() => setShowSettings(!showSettings)}
-            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
-            data-testid="button-tasbih-settings"
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={handleReset}
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+              data-testid="button-back-tasbih"
+            >
+              <RotateCcw className="w-5 h-5 text-white" />
+            </button>
+            <h1 className="text-2xl font-bold text-white">Tasbih</h1>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-white/70 text-sm">{currentProgress}/{target}</span>
+            <button 
+              onClick={() => setShowSettings(!showSettings)}
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+              data-testid="button-tasbih-settings"
+            >
+              <Settings className="w-5 h-5 text-white" />
+            </button>
+          </div>
+        </div>
+
+        {/* Dhikr Card */}
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8">
+          <p className="text-4xl font-arabic text-center text-white mb-4" style={{ fontFamily: "'Amiri', serif" }}>
+            {currentDhikr.arabic}
+          </p>
+          <p className="text-white/90 text-center font-medium">{currentDhikr.transliteration}</p>
+          <p className="text-white/60 text-center text-sm mt-2">{currentDhikr.meaning}</p>
+        </div>
+
+        {/* Count & Rounds Display */}
+        <div className="text-center mb-12">
+          <div className="text-6xl font-bold text-white tabular-nums" data-testid="tasbih-count">
+            {currentProgress}/{target}
+          </div>
+          <div className="text-white/70 text-sm mt-2">Rounds: {rounds}</div>
+        </div>
+
+        {/* Beads Display */}
+        <div className="flex justify-center mb-12">
+          <div className="flex items-center gap-3">
+            {/* String line */}
+            <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" 
+                 style={{ width: beads.length * 56 + 40 }} />
+            
+            {/* Beads */}
+            {beads.map((bead, idx) => (
+              <div key={bead.id} className="flex flex-col items-center">
+                <div className={cn(
+                  "w-12 h-12 rounded-full flex-shrink-0 transition-all duration-300",
+                  `bg-gradient-to-br ${selectedColor.bg}`,
+                  bead.used ? "opacity-30 scale-90" : "opacity-100 scale-100 shadow-lg"
+                )} 
+                style={{
+                  boxShadow: bead.used ? "none" : `0 4px 12px rgba(16, 185, 129, 0.4)`
+                }}>
+                  {!bead.used && (
+                    <div className="absolute w-4 h-4 bg-white/40 rounded-full" 
+                         style={{ top: '2px', left: '2px' }} />
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Click/Swipe hint and Main counter button */}
+        <div className="flex flex-col items-center gap-6 mb-8">
+          <p className="text-white/60 text-center text-sm">Click or swipe to count</p>
+          
+          <button
+            onClick={handleCount}
+            className="w-40 h-40 rounded-full bg-gradient-to-br from-white/20 to-white/5 border-2 border-white/30 flex items-center justify-center active:scale-95 transition-all duration-150 shadow-2xl hover:border-white/50"
+            data-testid="button-increment-tasbih"
           >
-            <Settings className="w-5 h-5 text-white" />
+            <div className="text-center">
+              <div className="text-5xl font-bold text-white">{currentProgress}</div>
+              <div className="text-white/70 text-sm">Tap to count</div>
+            </div>
           </button>
         </div>
 
+        {/* Bead Color Selection */}
+        <div className="flex justify-center gap-3 mb-8">
+          {BEAD_COLORS.map((color, idx) => (
+            <button
+              key={color.name}
+              onClick={() => setBeadColorIdx(idx)}
+              className={cn(
+                "w-12 h-12 rounded-full transition-all",
+                `bg-gradient-to-br ${color.bg}`,
+                beadColorIdx === idx ? "ring-2 ring-white scale-110" : "opacity-70 hover:opacity-100"
+              )}
+              data-testid={`button-color-${color.name}`}
+            />
+          ))}
+        </div>
+
+        {/* Edit Settings Button */}
+        <div className="flex justify-end mb-8">
+          <button 
+            onClick={() => setShowSettings(!showSettings)}
+            className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+            data-testid="button-edit-tasbih"
+          >
+            <Edit2 className="w-5 h-5 text-white" />
+          </button>
+        </div>
+
+        {/* Settings Panel */}
         {showSettings && (
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 mb-6 space-y-4">
             <div>
@@ -121,138 +226,18 @@ export default function Tasbih() {
 
             <button
               onClick={() => setVibrate(!vibrate)}
-              className="flex items-center gap-3 text-white"
+              className="flex items-center gap-3 text-white w-full p-3 rounded-xl hover:bg-white/10 transition-all"
             >
-              {vibrate ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-              <span>Vibration {vibrate ? "On" : "Off"}</span>
+              <input 
+                type="checkbox" 
+                checked={vibrate}
+                onChange={() => {}}
+                className="w-4 h-4 rounded cursor-pointer"
+              />
+              <span>Vibration Feedback</span>
             </button>
           </div>
         )}
-
-        <div className="text-center mb-8">
-          <p className="text-5xl font-arabic text-white mb-2" style={{ fontFamily: "'Amiri', serif" }}>
-            {currentDhikr.arabic}
-          </p>
-          <p className="text-white/70">{currentDhikr.transliteration}</p>
-        </div>
-
-        <div className="relative flex flex-col items-center justify-center mb-8">
-          {/* Prayer Beads Mala Visualization */}
-          <div className="relative w-80 h-80 flex items-center justify-center mb-6">
-            <svg className="w-full h-full" viewBox="0 0 300 300">
-              {/* Necklace string */}
-              <circle
-                cx="150"
-                cy="150"
-                r="120"
-                fill="none"
-                stroke="rgba(212, 175, 55, 0.3)"
-                strokeWidth="1.5"
-                strokeDasharray="4,2"
-              />
-              
-              {/* Render beads */}
-              {beads.map((bead) => (
-                <g key={bead.id}>
-                  {/* Bead circle */}
-                  <circle
-                    cx={bead.x}
-                    cy={bead.y}
-                    r="6"
-                    fill={bead.active ? "rgba(212, 175, 55, 0.4)" : "#D4AF37"}
-                    stroke={bead.active ? "rgba(212, 175, 55, 0.2)" : "#B8962E"}
-                    strokeWidth="1"
-                    className={bead.active ? "opacity-40" : "opacity-100"}
-                    style={{
-                      transition: "all 0.3s ease-out",
-                      filter: bead.active ? "blur(0.5px)" : "none"
-                    }}
-                  />
-                  {/* Highlight on active beads */}
-                  {!bead.active && (
-                    <circle
-                      cx={bead.x - 1.5}
-                      cy={bead.y - 1.5}
-                      r="2.5"
-                      fill="rgba(255, 255, 255, 0.6)"
-                    />
-                  )}
-                </g>
-              ))}
-            </svg>
-            
-            {/* Center counter display */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span 
-                className="text-6xl font-bold text-white tabular-nums"
-                data-testid="tasbih-count"
-              >
-                {count}
-              </span>
-              <span className="text-white/50 text-sm mt-1">of {target}</span>
-            </div>
-          </div>
-
-          {/* Progress bar below beads */}
-          <div className="w-full max-w-xs">
-            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#B8962E] transition-all duration-300 rounded-full"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-center gap-6">
-          <button
-            onClick={handleReset}
-            className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all active:scale-95"
-            data-testid="button-reset-tasbih"
-          >
-            <RotateCcw className="w-6 h-6 text-white" />
-          </button>
-
-          <button
-            onClick={handleCount}
-            className="w-32 h-32 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8962E] flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-all"
-            data-testid="button-increment-tasbih"
-          >
-            <Plus className="w-12 h-12 text-white" strokeWidth={3} />
-          </button>
-
-          <button
-            onClick={() => {
-              if (count > 0) {
-                setCount(count - 1);
-                storage.setTasbihCount(count - 1);
-              }
-            }}
-            className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all active:scale-95"
-            data-testid="button-decrement-tasbih"
-          >
-            <Minus className="w-6 h-6 text-white" />
-          </button>
-        </div>
-
-        <div className="mt-8 grid grid-cols-3 gap-3">
-          {[33, 66, 99].map((milestone) => (
-            <div 
-              key={milestone}
-              className={cn(
-                "text-center p-3 rounded-xl transition-all",
-                count >= milestone ? "bg-[#D4AF37]/20" : "bg-white/5"
-              )}
-            >
-              <span className={cn(
-                "text-lg font-bold",
-                count >= milestone ? "text-[#D4AF37]" : "text-white/40"
-              )}>
-                {milestone}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
       <BottomNav />
     </div>
