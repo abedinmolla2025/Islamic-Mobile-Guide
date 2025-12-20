@@ -42,7 +42,7 @@ function NameCard({ name, gender, language }: { name: IslamicName; gender: 'boy'
 export default function Names() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<'boys' | 'girls'>("boys");
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>("bn");
 
   const filteredNames = useMemo(() => {
     const gender = activeTab === 'boys' ? 'boy' : 'girl';
