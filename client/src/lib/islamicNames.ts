@@ -401,6 +401,180 @@ export const boyNames: IslamicName[] = [
       hi: "धनी, समृद्ध"
     }
   },
+  { 
+    name: "Karim", 
+    arabic: "كريم",
+    meanings: {
+      en: "Generous, Bountiful",
+      ar: "الكريم، المعطاء",
+      ur: "سخی، فیاض",
+      bn: "উদার, দাতব্য",
+      tr: "Cömert, Verimli",
+      hi: "उदार, भरपूर"
+    }
+  },
+  { 
+    name: "Samir", 
+    arabic: "سامر",
+    meanings: {
+      en: "Night entertainer",
+      ar: "السامر، مرح الليل",
+      ur: "رات کو تفریح دینے والا",
+      bn: "রাতের বিনোদন",
+      tr: "Gece eğlencesi",
+      hi: "रात का मनोरंजन"
+    }
+  },
+  { 
+    name: "Nasir", 
+    arabic: "ناصر",
+    meanings: {
+      en: "Helper, Supporter",
+      ar: "الناصر، المساعد",
+      ur: "مدد گار، معاون",
+      bn: "সহায়ক, সমর্থক",
+      tr: "Yardımcı, Destekçi",
+      hi: "सहायक, समर्थक"
+    }
+  },
+  { 
+    name: "Anwar", 
+    arabic: "أنور",
+    meanings: {
+      en: "Lights, Brighter",
+      ar: "الأنوار، أكثر إشراقاً",
+      ur: "روشنیاں، زیادہ روشن",
+      bn: "আলো, উজ্জ্বলতর",
+      tr: "Işıklar, Daha parlak",
+      hi: "रोशनी, अधिक चमकदार"
+    }
+  },
+  { 
+    name: "Waleed", 
+    arabic: "وليد",
+    meanings: {
+      en: "Newborn, Infant",
+      ar: "الوليد، الطفل الصغير",
+      ur: "نو جمہ، بچہ",
+      bn: "নবজাত, শিশু",
+      tr: "Yenidoğan, Bebek",
+      hi: "नवजात, बच्चा"
+    }
+  },
+  { 
+    name: "Rayan", 
+    arabic: "ريان",
+    meanings: {
+      en: "Full, Satiated",
+      ar: "الريان، الشبعان",
+      ur: "مکمل، سیر",
+      bn: "পূর্ণ, তৃপ্ত",
+      tr: "Dolu, Doygun",
+      hi: "पूर्ण, तृप्त"
+    }
+  },
+  { 
+    name: "Hasan", 
+    arabic: "حسان",
+    meanings: {
+      en: "Handsome, Beautiful",
+      ar: "الحسان، الجميل",
+      ur: "خوبصورت",
+      bn: "সুন্দর",
+      tr: "Güzel, Yakışıklı",
+      hi: "सुंदर, खूबसूरत"
+    }
+  },
+  { 
+    name: "Saul", 
+    arabic: "شاول",
+    meanings: {
+      en: "Asked for, Requested",
+      ar: "المطلوب، المطالب به",
+      ur: "مانگا گیا",
+      bn: "চাওয়া হয়েছে",
+      tr: "İstenen",
+      hi: "मांगा गया"
+    }
+  },
+  { 
+    name: "Adnan", 
+    arabic: "عدنان",
+    meanings: {
+      en: "Garden, Dweller",
+      ar: "الحديقة، الساكن",
+      ur: "باغ، رہائش",
+      bn: "বাগান, বাসিন্দা",
+      tr: "Bahçe, İkamet eden",
+      hi: "बाग, निवासी"
+    }
+  },
+  { name: "Abbas", arabic: "عباس", meanings: { en: "Stern, Gloomy", ar: "الجدي، العبوس", ur: "سخت، غمگین", bn: "কঠোর, অন্ধকার", tr: "Sert, Somber", hi: "कठोर, गंभीर" } },
+  { name: "Abbad", arabic: "عباد", meanings: { en: "Worshipper", ar: "العابد", ur: "عبادت کار", bn: "উপাসক", tr: "Tapıcı", hi: "उपासक" } },
+  { name: "Abdalla", arabic: "عبدالله", meanings: { en: "Servant of Allah", ar: "عبد الله", ur: "اللہ کا بندہ", bn: "আল্লাহর বান্দা", tr: "Allah'ın kulu", hi: "अल्लाह का बंदा" } },
+  { name: "Abdalmalik", arabic: "عبدالملك", meanings: { en: "Servant of King", ar: "عبد الملك", ur: "بادشاہ کا بندہ", bn: "রাজার বান্দা", tr: "Kral'ın kulu", hi: "राजा का बंदा" } },
+  { name: "Abdelkadir", arabic: "عبدالقادر", meanings: { en: "Servant of Mighty", ar: "عبد القادر", ur: "قادر کا بندہ", bn: "শক্তিমানের বান্দা", tr: "Güçlü'nün kulu", hi: "शक्तिशाली का बंदा" } },
+  { name: "Abdi", arabic: "عبدي", meanings: { en: "My servant", ar: "عبدي", ur: "میرا بندہ", bn: "আমার বান্দা", tr: "Benim kulum", hi: "मेरा बंदा" } },
+  { name: "Abdiel", arabic: "عبديائيل", meanings: { en: "Servant of God", ar: "عبد الله", ur: "خدا کا بندہ", bn: "ঈশ্বরের বান্দা", tr: "Tanrı'nın kulu", hi: "भगवान का बंदा" } },
+  { name: "Abdosh", arabic: "عبدوش", meanings: { en: "Servant", ar: "العبد", ur: "بندہ", bn: "দাস", tr: "Kul", hi: "दास" } },
+  { name: "Abdoulay", arabic: "عبدولاي", meanings: { en: "Servant of Almighty", ar: "عبد العلي", ur: "عظیم کا بندہ", bn: "সর্বশক্তিমানের বান্দা", tr: "Yüce'nin kulu", hi: "सर्वशक्तिमान का बंदा" } },
+  { name: "Abdu", arabic: "عبدو", meanings: { en: "Servant of God", ar: "عبد", ur: "خدا کا بندہ", bn: "ঈশ্বরের বান্দা", tr: "Tanrı'nın kulu", hi: "भगवान का बंदा" } },
+  { name: "Abdul", arabic: "عبدول", meanings: { en: "Servant of God", ar: "عبد", ur: "خدا کا بندہ", bn: "ঈশ্বরের বান্দা", tr: "Tanrı'nın kulu", hi: "भगवान का बंदा" } },
+  { name: "Abdulal", arabic: "عبدالعال", meanings: { en: "Servant of High", ar: "عبد العالي", ur: "اعلیٰ کا بندہ", bn: "উচ্চের বান্দা", tr: "Yüce'nin kulu", hi: "ऊंचे का बंदा" } },
+  { name: "Abdulaziz", arabic: "عبدالعزيز", meanings: { en: "Servant of Mighty", ar: "عبد العزيز", ur: "طاقتور کا بندہ", bn: "শক্তিশালীর বান্দা", tr: "Gücü'nün kulu", hi: "शक्तिशाली का बंदा" } },
+  { name: "Abdulbaqi", arabic: "عبدالباقي", meanings: { en: "Servant of Eternal", ar: "عبد الباقي", ur: "ابدی کا بندہ", bn: "চিরন্তনের বান্দা", tr: "Kal'ıcı'nın kulu", hi: "शाश्वत का बंदा" } },
+  { name: "Abdulbasit", arabic: "عبدالباسط", meanings: { en: "Servant of Expander", ar: "عبد الباسط", ur: "کشاد کار کا بندہ", bn: "প্রসারক ের বান্দা", tr: "Genişletici'nin kulu", hi: "विस्तारकर्ता का बंदा" } },
+  { name: "Abdulfatah", arabic: "عبدالفتاح", meanings: { en: "Servant of Opener", ar: "عبد الفتاح", ur: "کھولنے والے کا بندہ", bn: "উদ্বোধনকারীর বান্দা", tr: "Açan'ın kulu", hi: "खोलने वाले का बंदा" } },
+  { name: "Abdulghani", arabic: "عبدالغني", meanings: { en: "Servant of Rich", ar: "عبد الغني", ur: "امیر کا بندہ", bn: "ধনীর বান্দা", tr: "Zengin'in kulu", hi: "अमीर का बंदा" } },
+  { name: "Abdulhamid", arabic: "عبدالحميد", meanings: { en: "Servant of Praiser", ar: "عبد الحميد", ur: "حمد کرنے والے کا بندہ", bn: "প্রশংসাকারীর বান্দা", tr: "Övücü'nün kulu", hi: "प्रशंसक का बंदा" } },
+  { name: "Abdulhanan", arabic: "عبدالحنان", meanings: { en: "Servant of Merciful", ar: "عبد الحنان", ur: "رحم کرنے والے کا بندہ", bn: "কৃপাশীলের বান্দা", tr: "Merhamet'in kulu", hi: "दयालु का बंदा" } },
+  { name: "Abdulhaqq", arabic: "عبدالحق", meanings: { en: "Servant of Truth", ar: "عبد الحق", ur: "حق کا بندہ", bn: "সত্যের বান্দা", tr: "Gerçek'in kulu", hi: "सत्य का बंदा" } },
+  { name: "Abdulhasan", arabic: "عبدالحسن", meanings: { en: "Servant of Good", ar: "عبد الحسن", ur: "اچھائی کا بندہ", bn: "সদ্গুণের বান্দা", tr: "İyi'nin kulu", hi: "अच्छाई का बंदा" } },
+  { name: "Abdulhay", arabic: "عبدالحي", meanings: { en: "Servant of Living", ar: "عبد الحي", ur: "زندہ کا بندہ", bn: "জীবন্তের বান্দা", tr: "Hayat'ın kulu", hi: "जीवन का बंदा" } },
+  { name: "Abdulillah", arabic: "عبدالإله", meanings: { en: "Servant of God", ar: "عبد الله", ur: "خدا کا بندہ", bn: "ঈশ্বরের বান্দা", tr: "Tanrı'nın kulu", hi: "भगवान का बंदा" } },
+  { name: "Abduljabar", arabic: "عبدالجبار", meanings: { en: "Servant of Mighty", ar: "عبد الجبار", ur: "طاقتور کا بندہ", bn: "শক্তিশালীর বান্দা", tr: "Güçlü'nün kulu", hi: "शक्तिशाली का बंदा" } },
+  { name: "Abduljalil", arabic: "عبدالجليل", meanings: { en: "Servant of Great", ar: "عبد الجليل", ur: "عظیم کا بندہ", bn: "মহানের বান্দা", tr: "Büyük'ün kulu", hi: "महान का बंदा" } },
+  { name: "Abdulkahar", arabic: "عبدالقاهر", meanings: { en: "Servant of Subduer", ar: "عبد القاهر", ur: "مغلوب کن والے کا بندہ", bn: "জয়ী কারীর বান্দা", tr: "Yenilgiye uğratan'ın kulu", hi: "विजेता का बंदा" } },
+  { name: "Abdulkarim", arabic: "عبدالكريم", meanings: { en: "Servant of Generous", ar: "عبد الكريم", ur: "سخی کا بندہ", bn: "উদারের বান্দা", tr: "Cömert'in kulu", hi: "उदार का बंदा" } },
+  { name: "Abdulkhaleq", arabic: "عبدالخالق", meanings: { en: "Servant of Creator", ar: "عبد الخالق", ur: "خالق کا بندہ", bn: "সৃষ্টিকর্তার বান্দা", tr: "Yaratıcı'nın kulu", hi: "निर्माता का बंदा" } },
+  { name: "Abdullahi", arabic: "عبدالله", meanings: { en: "Servant of Allah", ar: "عبد الله", ur: "اللہ کا بندہ", bn: "আল্লাহর বান্দা", tr: "Allah'ın kulu", hi: "अल्लाह का बंदा" } },
+  { name: "Abdullatif", arabic: "عبدالعاطف", meanings: { en: "Servant of Subtle", ar: "عبد اللطيف", ur: "نرم مزاج کا بندہ", bn: "সূক্ষ্মের বান্দা", tr: "İnce'nin kulu", hi: "सूक्ष्म का बंदा" } },
+  { name: "Abdulmajid", arabic: "عبدالمجيد", meanings: { en: "Servant of Glorious", ar: "عبد المجيد", ur: "شان والے کا بندہ", bn: "মহিমান্বিতের বান্দা", tr: "Şanlı'nın kulu", hi: "महिमान्वित का बंदा" } },
+  { name: "Abdulmalik", arabic: "عبدالملك", meanings: { en: "Servant of King", ar: "عبد الملك", ur: "بادشاہ کا بندہ", bn: "রাজার বান্দা", tr: "Kral'ın kulu", hi: "राजा का बंदा" } },
+  { name: "Abdulmanaf", arabic: "عبدالمنافع", meanings: { en: "Servant of Benefits", ar: "عبد المنافع", ur: "فوائد کا بندہ", bn: "উপকারের বান্দা", tr: "Faydalar'ın kulu", hi: "लाभों का बंदा" } },
+  { name: "Abdulmomen", arabic: "عبدالمؤمن", meanings: { en: "Servant of Believer", ar: "عبد المؤمن", ur: "ایمان والے کا بندہ", bn: "বিশ্বাসীর বান্দা", tr: "Mümin'in kulu", hi: "विश्वासी का बंदा" } },
+  { name: "Abdulmoneim", arabic: "عبدالمنعم", meanings: { en: "Servant of Benefactor", ar: "عبد المنعم", ur: "احسان کار کا بندہ", bn: "উপকারকারীর বান্দা", tr: "İyiliksever'in kulu", hi: "कृपालु का बंदा" } },
+  { name: "Abdulmuttalib", arabic: "عبدالمطلب", meanings: { en: "Servant of Seeker", ar: "عبد المطلب", ur: "طالب کا بندہ", bn: "অন্বেষণকারীর বান্দা", tr: "Arayan'ın kulu", hi: "खोजी का बंदा" } },
+  { name: "Abdulmuiz", arabic: "عبدالمعز", meanings: { en: "Servant of Mighty", ar: "عبد المعز", ur: "عزت والے کا بندہ", bn: "শক্তিশালীর বান্দা", tr: "Güçlü'nün kulu", hi: "शक्तिशाली का बंदा" } },
+  { name: "Abdulqader", arabic: "عبدالقادر", meanings: { en: "Servant of Able", ar: "عبد القادر", ur: "قادر کا بندہ", bn: "সক্ষমের বান्দা", tr: "Muktedir'in kulu", hi: "सक्षम का बंदा" } },
+  { name: "Abdulqahhar", arabic: "عبدالقهار", meanings: { en: "Servant of Subduer", ar: "عبد القهار", ur: "مغلوب کن والے کا بندہ", bn: "জয়ী কারীর বান्দা", tr: "Yenilgiye uğratan'ın kulu", hi: "विजेता का बंदा" } },
+  { name: "Abdulqahari", arabic: "عبدالقاهري", meanings: { en: "Servant of Conqueror", ar: "عبد القاهري", ur: "فاتح کا بندہ", bn: "বিজয়ীর বান্দা", tr: "Fatihi'nin kulu", hi: "विजेता का बंदा" } },
+  { name: "Abdulqawi", arabic: "عبدالقوي", meanings: { en: "Servant of Strong", ar: "عبد القوي", ur: "مضبوط کا بندہ", bn: "শক্তিশালীর বান्দা", tr: "Güçlü'nün kulu", hi: "मजबूत का बंदा" } },
+  { name: "Abdulrahman", arabic: "عبدالرحمن", meanings: { en: "Servant of Merciful", ar: "عبد الرحمن", ur: "رحمان کا بندہ", bn: "পরম করুণাময়ের বান्দা", tr: "Rahman'ın kulu", hi: "रहमान का बंदा" } },
+  { name: "Abdulrashid", arabic: "عبدالراشد", meanings: { en: "Servant of Guided", ar: "عبد الراشد", ur: "ہدایت یافتہ کا بندہ", bn: "পথপ্রদর্শকের বান्দা", tr: "Doğru yolda'nın kulu", hi: "मार्गदर्शक का बंदा" } },
+  { name: "Abdulsalam", arabic: "عبدالسلام", meanings: { en: "Servant of Peace", ar: "عبد السلام", ur: "امن کا بندہ", bn: "শান্তির বান्দा", tr: "Barış'ın kulu", hi: "शांति का बंदा" } },
+  { name: "Abdulsattar", arabic: "عبدالساتر", meanings: { en: "Servant of Concealer", ar: "عبد الساتر", ur: "پنہان کن والے کا بندہ", bn: "আড়ম্বনকারীর বান्দা", tr: "Gizleyen'in kulu", hi: "छिपाने वाले का बंदा" } },
+  { name: "Abdulsaud", arabic: "عبدالسعود", meanings: { en: "Servant of Happy", ar: "عبد السعود", ur: "خوش قسمتی کا بندہ", bn: "সৌভাগ্যের বান्দা", tr: "Mutlu'nun kulu", hi: "खुशी का बंदा" } },
+  { name: "Abdulshaafi", arabic: "عبدالشافع", meanings: { en: "Servant of Intercessor", ar: "عبد الشافع", ur: "سفارش کار کا بندہ", bn: "মধ্যস্থতাকারীর বান्দा", tr: "Ara bulucu'nun kulu", hi: "मध्यस्थ का बंदा" } },
+  { name: "Abdulshafi", arabic: "عبدالشافي", meanings: { en: "Servant of Healer", ar: "عبد الشافي", ur: "شفا دیتے کا بندہ", bn: "সারক্যকারীর বান्দा", tr: "Şifacı'nın kulu", hi: "चिकित्सक का बंदा" } },
+  { name: "Abdulstaar", arabic: "عبدالستار", meanings: { en: "Servant of Concealer", ar: "عبد الستار", ur: "پردہ کن والے کا بندہ", bn: "আবৃতকারীর بান्দা", tr: "Kapatan'ın kulu", hi: "ढकने वाले का बंदा" } },
+  { name: "Abdulwahab", arabic: "عبدالوهاب", meanings: { en: "Servant of Giver", ar: "عبد الوهاب", ur: "دینے والے کا بندہ", bn: "দাতার বান्দা", tr: "Veren'in kulu", hi: "देने वाले का बंदा" } },
+  { name: "Abdulwahed", arabic: "عبدالواحد", meanings: { en: "Servant of One", ar: "عبد الواحد", ur: "ایک کا بندہ", bn: "একের বান্দা", tr: "Tek'in kulu", hi: "एक का बंदा" } },
+  { name: "Abdulwahid", arabic: "عبدالواحد", meanings: { en: "Servant of Unique", ar: "عبد الواحد", ur: "لاتطابقی کا بندہ", bn: "অনন্যের বান্দা", tr: "Benzersiz'in kulu", hi: "अद्वितीय का बंदा" } },
+  { name: "Abdulwali", arabic: "عبدالولي", meanings: { en: "Servant of Guardian", ar: "عبد الولي", ur: "محافظ کا بندہ", bn: "রক্ষকের বান्দা", tr: "Vasi'nin kulu", hi: "संरक्षक का बंदा" } },
+  { name: "Abdulwali", arabic: "عبدالوالي", meanings: { en: "Servant of Ruler", ar: "عبد الولي", ur: "حاکم کا بندہ", bn: "শাসকের বান्দা", tr: "Hükümdâr'ın kulu", hi: "शासक का बंदा" } },
+  { name: "Abdulwarrith", arabic: "عبدالوارث", meanings: { en: "Servant of Inheritor", ar: "عبد الوارث", ur: "وارث کا بندہ", bn: "উত্তরাধিকারীর বান्দা", tr: "Varis'in kulu", hi: "उत्तराधिकारी का बंदा" } },
+  { name: "Abdulwasi", arabic: "عبدالواسع", meanings: { en: "Servant of Wide", ar: "عبد الواسع", ur: "وسیع کا بندہ", bn: "বিস্তৃতের বান্দा", tr: "Geniş'in kulu", hi: "विस्तृत का बंदा" } },
+  { name: "Abdulwassee", arabic: "عبدالواسع", meanings: { en: "Servant of Vast", ar: "عبد الواسع", ur: "وسیع کا بندہ", bn: "বিশাল সেবকের বান्দা", tr: "Genişk'ün kulu", hi: "विशाल का बंदा" } },
+  { name: "Abdulwazir", arabic: "عبدالوزير", meanings: { en: "Servant of Minister", ar: "عبد الوزير", ur: "وزیر کا بندہ", bn: "মন্ত্রীর বান्দা", tr: "Bakan'ın kulu", hi: "मंत्री का बंदा" } },
+  { name: "Abdulwazzan", arabic: "عبدالوزن", meanings: { en: "Servant of Weight", ar: "عبد الوزن", ur: "وزن کا بندہ", bn: "ওজনের বান्দা", tr: "Ağırlık'ın kulu", hi: "वजन का बंदा" } },
+  { name: "Abdulwhab", arabic: "عبدالوهاب", meanings: { en: "Servant of Giver", ar: "عبد الوهاب", ur: "دینے والے کا بندہ", bn: "দাতার বান्দা", tr: "Veren'in kulu", hi: "देने वाले का बंदा" } },
+  { name: "Abdulwilly", arabic: "عبدالويلي", meanings: { en: "Servant of Will", ar: "عبد الويل", ur: "مرضی کا بندہ", bn: "ইচ্ছার বান्দা", tr: "İrade'nin kulu", hi: "इच्छा का बंदा" } },
+  { name: "Abdulwimmilah", arabic: "عبدالوميلة", meanings: { en: "Servant of Helper", ar: "عبد الوميلة", ur: "مدد گار کا بندہ", bn: "সহায়কের বান्দা", tr: "Yardımcı'nın kulu", hi: "सहायक का बंदा" } },
+  { name: "Abdulwinney", arabic: "عبدالويني", meanings: { en: "Servant of Comfort", ar: "عبد الويني", ur: "آرام کا بندہ", bn: "স্বস্তির বান্দা", tr: "Rahatlık'ın kulu", hi: "आराम का बंदा" } },
+  { name: "Abdulwyell", arabic: "عبدالويل", meanings: { en: "Servant of Well", ar: "عبد الويل", ur: "کنویں کا بندہ", bn: "কুপের বান्দা", tr: "Kuyu'nun kulu", hi: "कुआं का बंदा" } },
+  { name: "Abdulyadeed", arabic: "عبدالياسر", meanings: { en: "Servant of Maker Easy", ar: "عبد اليسر", ur: "آسان کن والے کا بندہ", bn: "সহজকারীর বান्দা", tr: "Kolaylaştıran'ın kulu", hi: "सुगम करने वाले का बंदा" } },
+  { name: "Abdulyelef", arabic: "عبدالظلام", meanings: { en: "Servant of Darkness", ar: "عبد الظلام", ur: "اندھیرے کا بندہ", bn: "অন্ধকারের বান्দা", tr: "Karanlık'ın kulu", hi: "अंधकार का बंदा" } },
 ];
 
 export const girlNames: IslamicName[] = [
@@ -714,6 +888,126 @@ export const girlNames: IslamicName[] = [
       bn: "রানী, সার্বভৌম",
       tr: "Kraliçe, Hükümdar",
       hi: "रानी, सम्राज्ञी"
+    }
+  },
+  { 
+    name: "Nadia", 
+    arabic: "ناديا",
+    meanings: {
+      en: "Caller, Announcer",
+      ar: "الناادية، المعلنة",
+      ur: "ندا کن والی، اعلان کن والی",
+      bn: "ডাককারী, ঘোষক",
+      tr: "Çağıran, Duyurucu",
+      hi: "पुकारने वाली, घोषणा करने वाली"
+    }
+  },
+  { 
+    name: "Sana", 
+    arabic: "سناء",
+    meanings: {
+      en: "Radiance, Splendor",
+      ar: "السناء، البهاء",
+      ur: "روشنی، دولت",
+      bn: "উজ্জ্বলতা, প্রভা",
+      tr: "Parlak, Zafer",
+      hi: "चमक, शोभा"
+    }
+  },
+  { 
+    name: "Dina", 
+    arabic: "دينا",
+    meanings: {
+      en: "Religion, Faith",
+      ar: "الدين، الإيمان",
+      ur: "مذہب، ایمان",
+      bn: "ধর্ম, বিশ্বাস",
+      tr: "Din, İman",
+      hi: "धर्म, विश्वास"
+    }
+  },
+  { 
+    name: "Leila", 
+    arabic: "ليلة",
+    meanings: {
+      en: "Night, Dark",
+      ar: "الليل، الليلة",
+      ur: "رات، شب",
+      bn: "রাত, অন্ধকার",
+      tr: "Gece, Karanlık",
+      hi: "रात, अंधकार"
+    }
+  },
+  { 
+    name: "Mina", 
+    arabic: "منى",
+    meanings: {
+      en: "Desire, Wish, Hope",
+      ar: "المنى، الأمنية",
+      ur: "خواہش، آرزو، امید",
+      bn: "ইচ্ছা, আশা",
+      tr: "Arzu, İstek, Umut",
+      hi: "इच्छा, आशा"
+    }
+  },
+  { 
+    name: "Rima", 
+    arabic: "ريما",
+    meanings: {
+      en: "Antelope, Graceful",
+      ar: "الريم، الظبي",
+      ur: "ہرن، خوب صورت",
+      bn: "হরিণ, সুন্দর",
+      tr: "Ceylan, Zarif",
+      hi: "मृग, सुंदर"
+    }
+  },
+  { 
+    name: "Nida", 
+    arabic: "نداء",
+    meanings: {
+      en: "Call, Appeal",
+      ar: "النداء، الطلب",
+      ur: "ندا، اپیل",
+      bn: "আহ্বান, আবেদন",
+      tr: "Çağrı, İddia",
+      hi: "आह्वान, अपील"
+    }
+  },
+  { 
+    name: "Sabah", 
+    arabic: "صباح",
+    meanings: {
+      en: "Morning, Dawn",
+      ar: "الصباح، الفجر",
+      ur: "صبح، طلوع",
+      bn: "সকাল, ভোর",
+      tr: "Sabah, Şafak",
+      hi: "सुबह, भोर"
+    }
+  },
+  { 
+    name: "Rabia", 
+    arabic: "رابعة",
+    meanings: {
+      en: "Fourth, Garden",
+      ar: "الرابعة، الحديقة",
+      ur: "چوتھا، باغ",
+      bn: "চতুর্থ, বাগান",
+      tr: "Dördüncü, Bahçe",
+      hi: "चौथा, बाग"
+    }
+  },
+  { 
+    name: "Hana", 
+    arabic: "هناء",
+    meanings: {
+      en: "Happiness, Bliss",
+      ar: "الهناء، السعادة",
+      ur: "خوشی، برکت",
+      bn: "সুখ, আনন্দ",
+      tr: "Mutluluk, Bereket",
+      hi: "खुशी, आनंद"
     }
   },
 ];
