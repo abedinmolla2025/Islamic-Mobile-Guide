@@ -253,6 +253,35 @@ export default function SurahPage() {
                         <div className="w-1 h-2 bg-[#D4AF37] rounded-full animate-pulse delay-150" />
                       </div>
                     )}
+                    {audioUrls.length > 0 && (
+                      <Button
+                        size="sm"
+                        variant={currentPlayingAyah === ayah.numberInSurah ? "default" : "ghost"}
+                        onClick={() => {
+                          setCurrentPlayingAyah(ayah.numberInSurah);
+                          scrollToAyah(ayah.numberInSurah);
+                        }}
+                        className={`h-6 px-2 text-xs gap-1 ${
+                          currentPlayingAyah === ayah.numberInSurah 
+                            ? "bg-[#D4AF37] text-white hover:bg-[#D4AF37]" 
+                            : "text-[#D4AF37] hover:bg-[#D4AF37]/10"
+                        }`}
+                        data-testid={`button-play-ayah-${ayah.numberInSurah}`}
+                      >
+                        {currentPlayingAyah === ayah.numberInSurah ? (
+                          <>
+                            <span className="w-0.5 h-2 bg-current rounded-full" />
+                            <span className="w-0.5 h-3 bg-current rounded-full" />
+                            <span className="text-xs">Playing</span>
+                          </>
+                        ) : (
+                          <>
+                            <Play className="w-3 h-3 fill-current" />
+                            <span className="text-xs">Play</span>
+                          </>
+                        )}
+                      </Button>
+                    )}
                   </div>
                   <div className="flex items-center gap-2 text-white/40 text-xs">
                     <span>Juz {ayah.juz}</span>
