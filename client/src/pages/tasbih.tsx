@@ -110,22 +110,23 @@ export default function Tasbih() {
         </div>
 
         {/* Beads Display */}
-        <div className="flex justify-center mb-12">
-          <div className="flex items-center gap-3">
+        <div className="flex justify-center mb-12 perspective">
+          <div className="flex items-center gap-3" style={{ perspective: "1000px" }}>
             {/* String line */}
-            <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" 
+            <div className="absolute h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" 
                  style={{ width: beads.length * 56 + 40 }} />
             
             {/* Beads */}
             {beads.map((bead, idx) => (
               <div key={bead.id} className="flex flex-col items-center">
                 <div className={cn(
-                  "w-12 h-12 rounded-full flex-shrink-0 transition-all duration-300",
+                  "w-12 h-12 rounded-full flex-shrink-0",
                   `bg-gradient-to-br ${selectedColor.bg}`,
-                  bead.used ? "opacity-30 scale-90" : "opacity-100 scale-100 shadow-lg"
+                  bead.used ? "animate-bead-move-away" : "opacity-100 scale-100 shadow-lg"
                 )} 
                 style={{
-                  boxShadow: bead.used ? "none" : `0 4px 12px rgba(16, 185, 129, 0.4)`
+                  boxShadow: bead.used ? "none" : `0 4px 12px rgba(16, 185, 129, 0.4)`,
+                  transformStyle: "preserve-3d"
                 }}>
                   {!bead.used && (
                     <div className="absolute w-4 h-4 bg-white/40 rounded-full" 
