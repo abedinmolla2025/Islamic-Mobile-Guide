@@ -111,28 +111,60 @@ export default function Tasbih() {
 
         {/* Beads Display */}
         <div className="flex justify-center mb-12 perspective">
-          <div className="flex items-center gap-3" style={{ perspective: "1000px" }}>
+          <div className="flex items-center gap-4" style={{ perspective: "1200px" }}>
             {/* String line */}
-            <div className="absolute h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" 
-                 style={{ width: beads.length * 56 + 40 }} />
+            <div className="absolute h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" 
+                 style={{ width: beads.length * 64 + 60 }} />
             
             {/* Beads */}
             {beads.map((bead, idx) => (
               <div key={bead.id} className="flex flex-col items-center">
-                <div className={cn(
-                  "w-12 h-12 rounded-full flex-shrink-0",
-                  `bg-gradient-to-br ${selectedColor.bg}`,
-                  bead.used ? "animate-bead-move-away" : "opacity-100 scale-100 shadow-lg"
-                )} 
-                style={{
-                  boxShadow: bead.used ? "none" : `0 4px 12px rgba(16, 185, 129, 0.4)`,
-                  transformStyle: "preserve-3d"
-                }}>
-                  {!bead.used && (
-                    <div className="absolute w-4 h-4 bg-white/40 rounded-full" 
-                         style={{ top: '2px', left: '2px' }} />
-                  )}
-                </div>
+                {!bead.used ? (
+                  <div className="relative w-14 h-14 flex-shrink-0 group">
+                    {/* Main bead - 3D sphere effect */}
+                    <div className={cn(
+                      "absolute inset-0 rounded-full flex-shrink-0 transition-all duration-200",
+                      `bg-gradient-to-br ${selectedColor.bg}`,
+                      "group-hover:scale-110"
+                    )} 
+                    style={{
+                      boxShadow: `
+                        0 8px 16px rgba(0, 0, 0, 0.5),
+                        0 2px 4px rgba(0, 0, 0, 0.3),
+                        inset -1px -2px 4px rgba(0, 0, 0, 0.3),
+                        inset 2px 2px 4px rgba(255, 255, 255, 0.3)
+                      `,
+                      transformStyle: "preserve-3d",
+                      background: `
+                        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
+                        linear-gradient(135deg, var(--bead-color-1, ${selectedColor.hex}) 0%, var(--bead-color-2, ${selectedColor.hex}) 100%)
+                      `
+                    }}>
+                      {/* Top highlight - glossy shine */}
+                      <div className="absolute w-3 h-3 bg-white/50 rounded-full" 
+                           style={{ top: '3px', left: '4px', filter: 'blur(1px)' }} />
+                      
+                      {/* Secondary highlight */}
+                      <div className="absolute w-2 h-2 bg-white/30 rounded-full" 
+                           style={{ top: '5px', right: '6px' }} />
+                    </div>
+                  </div>
+                ) : (
+                  /* Used bead - fading animation */
+                  <div className="w-14 h-14 rounded-full flex-shrink-0 animate-bead-move-away"
+                       style={{
+                         background: `
+                           radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
+                           linear-gradient(135deg, var(--bead-color-1, ${selectedColor.hex}) 0%, var(--bead-color-2, ${selectedColor.hex}) 100%)
+                         `,
+                         boxShadow: `
+                           0 8px 16px rgba(0, 0, 0, 0.5),
+                           0 2px 4px rgba(0, 0, 0, 0.3),
+                           inset -1px -2px 4px rgba(0, 0, 0, 0.3),
+                           inset 2px 2px 4px rgba(255, 255, 255, 0.3)
+                         `
+                       }} />
+                )}
               </div>
             ))}
           </div>
