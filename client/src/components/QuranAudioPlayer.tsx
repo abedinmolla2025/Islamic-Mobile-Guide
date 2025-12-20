@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -47,34 +47,42 @@ interface QuranAudioPlayerProps {
   className?: string;
 }
 
-export default function QuranAudioPlayer({
-  audioUrls,
-  surahNumber,
-  totalAyahs,
-  selectedReciter,
-  onReciterChange,
-  onAyahChange,
-  className = "",
-}: QuranAudioPlayerProps) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentAyah, setCurrentAyah] = useState(1);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(() => {
-    const prefs = getStoredAudioPreferences();
-    return prefs.volume ?? 1;
-  });
-  const [playbackSpeed, setPlaybackSpeed] = useState(() => {
-    const prefs = getStoredAudioPreferences();
-    return prefs.playbackSpeed ?? 1;
-  });
-  const [playbackMode, setPlaybackMode] = useState<PlaybackMode>(() => {
-    const prefs = getStoredAudioPreferences();
-    return (prefs.playbackMode as PlaybackMode) ?? "continuous";
-  });
-  const [isMuted, setIsMuted] = useState(false);
+export interface QuranAudioPlayerHandle {
+  playAyah: (ayahNumber: number) => void;
+}
+
+const QuranAudioPlayer = forwardRef<QuranAudioPlayerHandle, QuranAudioPlayerProps>(
+  (
+    {
+      audioUrls,
+      surahNumber,
+      totalAyahs,
+      selectedReciter,
+      onReciterChange,
+      onAyahChange,
+      className = "",
+    },
+    ref,
+  ) => {
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentAyah, setCurrentAyah] = useState(1);
+    const [duration, setDuration] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [volume, setVolume] = useState(() => {
+      const prefs = getStoredAudioPreferences();
+      return prefs.volume ?? 1;
+    });
+    const [playbackSpeed, setPlaybackSpeed] = useState(() => {
+      const prefs = getStoredAudioPreferences();
+      return prefs.playbackSpeed ?? 1;
+    });
+    const [playbackMode, setPlaybackMode] = useState<PlaybackMode>(() => {
+      const prefs = getStoredAudioPreferences();
+      return (prefs.playbackMode as PlaybackMode) ?? "continuous";
+    });
+    const [isMuted, setIsMuted] = useState(false);
   
   useEffect(() => {
     if (audioRef.current) {
@@ -144,6 +152,10 @@ export default function QuranAudioPlayer({
     setIsPlaying(true);
     onAyahChange?.(ayahNumber);
   }, [audioUrls, playbackSpeed, volume, isMuted, onAyahChange]);
+
+  useImperativeHandle(ref, () => ({
+    playAyah,
+  }), [playAyah]);
 
   const handleTrackEnd = useCallback(() => {
     if (playbackMode === "repeat-one") {
@@ -454,4 +466,7 @@ export default function QuranAudioPlayer({
       </div>
     </div>
   );
-}
+});
+
+QuranAudioPlayer.displayName = "QuranAudioPlayer";
+export default QuranAudioPlayer;

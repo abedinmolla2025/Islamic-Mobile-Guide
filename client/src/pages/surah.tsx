@@ -3,7 +3,7 @@ import { useParams, Link } from "wouter";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getSurahWithTranslation, AVAILABLE_TRANSLATIONS, getTranslationFontClass, type SurahDetail } from "@/lib/quranApi";
 import { getAudioForSurah, getStoredAudioPreferences } from "@/lib/quranAudio";
-import QuranAudioPlayer from "@/components/QuranAudioPlayer";
+import QuranAudioPlayer, { type QuranAudioPlayerHandle } from "@/components/QuranAudioPlayer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,6 +21,7 @@ export default function SurahPage() {
   const params = useParams();
   const surahNumber = parseInt(params.number || "1", 10);
   const ayahRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const audioPlayerRef = useRef<QuranAudioPlayerHandle>(null);
   
   const [selectedTranslation, setSelectedTranslation] = useState(() => {
     return localStorage.getItem("quran_translation") || "en.sahih";
@@ -188,6 +189,7 @@ export default function SurahPage() {
         {showAudioPlayer && surah && (
           <div className="px-4 mb-4">
             <QuranAudioPlayer
+              ref={audioPlayerRef}
               audioUrls={audioUrls}
               surahNumber={surahNumber}
               totalAyahs={surah.numberOfAyahs}
@@ -258,6 +260,7 @@ export default function SurahPage() {
                         size="sm"
                         variant={currentPlayingAyah === ayah.numberInSurah ? "default" : "ghost"}
                         onClick={() => {
+                          audioPlayerRef.current?.playAyah(ayah.numberInSurah);
                           setCurrentPlayingAyah(ayah.numberInSurah);
                           scrollToAyah(ayah.numberInSurah);
                         }}
