@@ -128,17 +128,9 @@ export default function Tasbih() {
                       "group-hover:scale-110"
                     )} 
                     style={{
-                      boxShadow: `
-                        0 8px 16px rgba(0, 0, 0, 0.5),
-                        0 2px 4px rgba(0, 0, 0, 0.3),
-                        inset -1px -2px 4px rgba(0, 0, 0, 0.3),
-                        inset 2px 2px 4px rgba(255, 255, 255, 0.3)
-                      `,
+                      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3), inset -1px -2px 4px rgba(0, 0, 0, 0.3), inset 2px 2px 4px rgba(255, 255, 255, 0.3)",
                       transformStyle: "preserve-3d",
-                      background: `
-                        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
-                        linear-gradient(135deg, var(--bead-color-1, ${selectedColor.hex}) 0%, var(--bead-color-2, ${selectedColor.hex}) 100%)
-                      `
+                      backgroundImage: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%), linear-gradient(135deg, ${selectedColor.hex} 0%, ${selectedColor.hex} 100%)`
                     }}>
                       {/* Top highlight - glossy shine */}
                       <div className="absolute w-3 h-3 bg-white/50 rounded-full" 
@@ -153,16 +145,8 @@ export default function Tasbih() {
                   /* Used bead - fading animation */
                   <div className="w-14 h-14 rounded-full flex-shrink-0 animate-bead-move-away"
                        style={{
-                         background: `
-                           radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
-                           linear-gradient(135deg, var(--bead-color-1, ${selectedColor.hex}) 0%, var(--bead-color-2, ${selectedColor.hex}) 100%)
-                         `,
-                         boxShadow: `
-                           0 8px 16px rgba(0, 0, 0, 0.5),
-                           0 2px 4px rgba(0, 0, 0, 0.3),
-                           inset -1px -2px 4px rgba(0, 0, 0, 0.3),
-                           inset 2px 2px 4px rgba(255, 255, 255, 0.3)
-                         `
+                         backgroundImage: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%), linear-gradient(135deg, ${selectedColor.hex} 0%, ${selectedColor.hex} 100%)`,
+                         boxShadow: "0 8px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3), inset -1px -2px 4px rgba(0, 0, 0, 0.3), inset 2px 2px 4px rgba(255, 255, 255, 0.3)"
                        }} />
                 )}
               </div>
