@@ -18,18 +18,20 @@ import AsmaUlHusna from "@/pages/asma-ul-husna";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/quran" component={Quran} />
-      <Route path="/surah/:number" component={SurahPage} />
-      <Route path="/duas" component={Duas} />
-      <Route path="/tools" component={Tools} />
-      <Route path="/tasbih" component={Tasbih} />
-      <Route path="/qibla" component={Qibla} />
-      <Route path="/names" component={Names} />
-      <Route path="/asma-ul-husna" component={AsmaUlHusna} />
-      <Route component={NotFound} />
-    </Switch>
+    <div className="pb-24">
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/quran" component={Quran} />
+        <Route path="/surah/:number" component={SurahPage} />
+        <Route path="/duas" component={Duas} />
+        <Route path="/tools" component={Tools} />
+        <Route path="/tasbih" component={Tasbih} />
+        <Route path="/qibla" component={Qibla} />
+        <Route path="/names" component={Names} />
+        <Route path="/asma-ul-husna" component={AsmaUlHusna} />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
   );
 }
 
