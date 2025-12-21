@@ -295,7 +295,7 @@ const hadiths: Hadith[] = [
 
 export default function HadithPage() {
   const [currentHadith, setCurrentHadith] = useState<Hadith>(hadiths[0]);
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>("bn");
 
   const getRandomHadith = () => {
     const random = hadiths[Math.floor(Math.random() * hadiths.length)];
