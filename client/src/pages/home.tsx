@@ -13,7 +13,7 @@ import prayingManImg from "@assets/praying_muslim_man.png";
 
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran", animation: "animate-page-flip" },
-  { emoji: "🤲", label: "Azkar", path: "/duas", animation: "animate-hand-wave" },
+  { emoji: "🤲", label: "Dua", path: "/duas", animation: "animate-hand-wave" },
   { emoji: "👶", label: "Names", path: "/names", animation: "animate-smile" },
   { emoji: "🧭", label: "Qibla", path: "/qibla", animation: "animate-spin-slow" },
   { emoji: "📿", label: "Tasbih", path: "/tasbih", animation: "animate-bead-roll" },
