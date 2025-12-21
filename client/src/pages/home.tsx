@@ -243,27 +243,29 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Feature Icons */}
+            {/* Feature Icons - Scrollable */}
             <div className="px-4 mb-6">
-              <div className="flex justify-between gap-2">
-                {features.map((feature, idx) => (
-                  <Link key={idx} href={feature.path}>
-                    <div 
-                      className="flex flex-col items-center cursor-pointer group animate-fade-in"
-                      style={{
-                        animationDelay: `${idx * 0.1}s`,
-                        opacity: 0,
-                        animation: `fadeIn 0.6s ease-out ${idx * 0.1}s forwards`
-                      }}
-                      data-testid={`feature-${feature.label.toLowerCase()}`}
-                    >
-                      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
-                        <span className={`text-2xl ${feature.animation}`} style={{ animationDelay: `${idx * 0.1}s` }}>{feature.emoji}</span>
+              <div className="overflow-x-auto scrollbar-hide">
+                <div className="flex gap-3 pb-2 min-w-min">
+                  {features.map((feature, idx) => (
+                    <Link key={idx} href={feature.path}>
+                      <div 
+                        className="flex flex-col items-center cursor-pointer group animate-fade-in flex-shrink-0"
+                        style={{
+                          animationDelay: `${idx * 0.1}s`,
+                          opacity: 0,
+                          animation: `fadeIn 0.6s ease-out ${idx * 0.1}s forwards`
+                        }}
+                        data-testid={`feature-${feature.label.toLowerCase()}`}
+                      >
+                        <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center mb-2 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+                          <span className={`text-2xl ${feature.animation}`} style={{ animationDelay: `${idx * 0.1}s` }}>{feature.emoji}</span>
+                        </div>
+                        <span className="text-xs text-gray-600 font-medium group-hover:text-emerald-600 transition-colors duration-200 text-center whitespace-nowrap">{feature.label}</span>
                       </div>
-                      <span className="text-xs text-gray-600 font-medium group-hover:text-emerald-600 transition-colors duration-200">{feature.label}</span>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 
