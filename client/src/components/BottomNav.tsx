@@ -11,6 +11,7 @@ export default function BottomNav() {
     { icon: "🧭", label: "Qibla", path: "/qibla" },
     { icon: "🤲", label: "Dua", path: "/duas" },
     { icon: "📿", label: "Tasbih", path: "/tasbih" },
+    { icon: "⚙️", label: "Settings", path: "/settings" },
   ];
 
   return (

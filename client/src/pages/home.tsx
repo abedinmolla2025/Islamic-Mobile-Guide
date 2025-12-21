@@ -18,6 +18,8 @@ const features = [
   { emoji: "🧭", label: "Qibla", path: "/qibla", animation: "animate-spin-slow" },
   { emoji: "📿", label: "Tasbih", path: "/tasbih", animation: "animate-bead-roll" },
   { emoji: "✨", label: "99 Names", path: "/asma-ul-husna", animation: "animate-sparkle" },
+  { emoji: "📚", label: "Hadith", path: "/hadith", animation: "animate-page-flip" },
+  { emoji: "🗓️", label: "Calendar", path: "/calendar", animation: "animate-sparkle" },
 ];
 
 export default function Home() {

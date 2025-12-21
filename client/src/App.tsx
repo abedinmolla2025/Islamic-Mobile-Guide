@@ -15,6 +15,9 @@ import Tasbih from "@/pages/tasbih";
 import Qibla from "@/pages/qibla";
 import Names from "@/pages/names";
 import AsmaUlHusna from "@/pages/asma-ul-husna";
+import Settings from "@/pages/settings";
+import HadithPage from "@/pages/hadith";
+import IslamicCalendar from "@/pages/islamic-calendar";
 
 function Router() {
   return (
@@ -29,6 +32,9 @@ function Router() {
         <Route path="/qibla" component={Qibla} />
         <Route path="/names" component={Names} />
         <Route path="/asma-ul-husna" component={AsmaUlHusna} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/hadith" component={HadithPage} />
+        <Route path="/calendar" component={IslamicCalendar} />
         <Route component={NotFound} />
       </Switch>
     </div>
