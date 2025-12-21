@@ -10,8 +10,8 @@ export default function BottomNav() {
     { icon: "📖", label: "Quran", path: "/quran" },
     { icon: "🧭", label: "Qibla", path: "/qibla" },
     { icon: "🤲", label: "Dua", path: "/duas" },
-    { icon: "📿", label: "Tasbih", path: "/tasbih" },
-    { icon: "⚙️", label: "Settings", path: "/settings" },
+    { icon: "📚", label: "Hadith", path: "/hadith" },
+    { icon: "🗓️", label: "Calendar", path: "/calendar" },
   ];
 
   return (

@@ -81,6 +81,15 @@
 [x] 5. All 8 feature icons (Quran, Azkar, Names, Qibla, Tasbih, 99 Names, Hadith, Calendar) now scroll smoothly on mobile
 [x] 6. Verified mobile-friendly scrolling experience without visible scrollbar
 
+## Bottom Navigation Menu Restructuring (December 21, 2025)
+[x] 1. Moved Hadith feature from home page to bottom navigation menu
+[x] 2. Moved Calendar feature from home page to bottom navigation menu
+[x] 3. Removed Settings from bottom nav (moved to more logical navigation)
+[x] 4. Updated bottom nav items: Home, Quran, Qibla, Dua, Hadith, Calendar
+[x] 5. Reduced feature icons on home page from 8 to 6 for cleaner UI
+[x] 6. Home page now focuses on main features: Quran, Azkar, Names, Qibla, Tasbih, 99 Names
+[x] 7. Eliminated duplicate navigation entries for better UX
+
 ## Final Migration Completion (December 21, 2025)
 [x] 1. Fixed tsx dependency issue by running npm install
 [x] 2. Configured workflow with webview output type for port 5000
