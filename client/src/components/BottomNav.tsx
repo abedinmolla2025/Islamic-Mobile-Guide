@@ -8,10 +8,10 @@ export default function BottomNav() {
   const navItems = [
     { icon: "🏠", label: "Home", path: "/" },
     { icon: "📖", label: "Quran", path: "/quran" },
-    { icon: "🧭", label: "Qibla", path: "/qibla" },
     { icon: "🤲", label: "Dua", path: "/duas" },
     { icon: "📚", label: "Hadith", path: "/hadith" },
     { icon: "🗓️", label: "Calendar", path: "/calendar" },
+    { icon: "⚙️", label: "Settings", path: "/settings" },
   ];
 
   return (
