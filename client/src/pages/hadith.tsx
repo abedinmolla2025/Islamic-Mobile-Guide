@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, BookOpen, RefreshCw, Globe } from "lucide-react";
+import { ArrowLeft, BookOpen, RefreshCw } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type Language = "en" | "ar" | "bn" | "ur" | "tr";
 
@@ -199,21 +198,25 @@ export default function HadithPage() {
 
       {/* Content */}
       <div className="p-4 max-w-2xl mx-auto space-y-6 pt-6">
-        {/* Language Selector */}
-        <div className="flex gap-2 items-center">
-          <Globe className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-          <Select value={language} onValueChange={(v) => setLanguage(v as Language)}>
-            <SelectTrigger className="w-40 bg-white dark:bg-slate-800 border border-amber-300 dark:border-amber-700">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {languages.map((lang) => (
-                <SelectItem key={lang.code} value={lang.code}>
-                  {lang.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Language Selector Cards */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">Select Language</h3>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => setLanguage(lang.code)}
+                className={`p-3 rounded-lg font-medium transition-all ${
+                  language === lang.code
+                    ? "bg-amber-600 text-white shadow-lg scale-105"
+                    : "bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-amber-300 dark:border-amber-700 hover-elevate"
+                }`}
+                data-testid={`button-language-${lang.code}`}
+              >
+                {lang.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Main Hadith Card */}
