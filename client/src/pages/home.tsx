@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import { AdBanner } from "@/components/AdBanner";
 import { cn } from "@/lib/utils";
-import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp, Play } from "lucide-react";
+import { MapPin, Loader2, Moon, Clock, Sun, Sunrise, Sunset, CloudSun, ChevronDown, ChevronUp, Play, BookOpen } from "lucide-react";
 import { Link } from "wouter";
 import { calculatePrayerTimes, fetchPrayerTimesFromAPI, getUserLocation, type PrayerTime } from "@/lib/prayerTimes";
 import { type HijriDate } from "@/lib/hijri";
@@ -10,6 +10,29 @@ import { storage } from "@/lib/storage";
 import { initAdMob } from "@/lib/admob";
 import { getIslamicCelebration, type Celebration } from "@/lib/islamicCelebrations";
 import prayingManImg from "@assets/praying_muslim_man.png";
+
+type Language = "en" | "ar" | "bn" | "ur" | "tr";
+
+interface HadithData {
+  id: number;
+  text: { en: string; ar: string; bn: string; ur: string; tr: string };
+  source: string;
+  narrator: string;
+  collection: string;
+}
+
+const hadiths: HadithData[] = [
+  { id: 1, text: { en: "The best of you are those who are best to their families, and I am the best among you to my family.", ar: "خيركم خيركم لأهله وأنا خيركم لأهلي", bn: "তোমাদের মধ্যে সেরা হল তারা যারা তাদের পরিবারের প্রতি সেরা।", ur: "تم میں سے بہترین وہ ہیں جو اپنے خاندان کے لیے بہترین ہیں۔", tr: "Sizin en iyileriniz ailelerine iyi davrananlarıdır." }, source: "Sahih Bukhari", narrator: "Prophet Muhammad", collection: "Family & Rights" },
+  { id: 2, text: { en: "The best wealth is a good tongue and a thankful heart.", ar: "خير المال لسان ذاكر وقلب شاكر", bn: "সেরা সম্পদ হল ভালো জিহ্বা এবং কৃতজ্ঞ হৃদয়।", ur: "بہترین دولت ایک اچھی زبان اور شکری دل ہے۔", tr: "En iyi servet, iyi bir dil ve şükreden bir kalptir." }, source: "Sahih Bukhari", narrator: "Prophet Muhammad", collection: "Wealth & Gratitude" },
+  { id: 3, text: { en: "Whoever believes in Allah and the Last Day should speak good or remain silent.", ar: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت", bn: "যে আল্লাহ এবং শেষ দিনে বিশ্বাস করে তার ভালো কথা বলা উচিত অথবা চুপ থাকা উচিত।", ur: "جو اللہ اور آخری دن پر ایمان رکھتا ہے وہ اچھی بات کہے یا خاموش رہے۔", tr: "Kim Allah'a ve Son Güne iman ediyorsa, iyi söylemeli veya sessiz kalmalıdır." }, source: "Sahih Bukhari", narrator: "Prophet Muhammad", collection: "Speech & Wisdom" },
+  { id: 4, text: { en: "The greatest jihad is struggling against your own desires and ego.", ar: "أعظم الجهاد جهاد النفس", bn: "সবচেয়ে বড় জিহাদ হল আপনার নিজের প্রবৃত্তির বিরুদ্ধে সংগ্রাম।", ur: "سب سے بڑا جہاد اپنے نفس کے خلاف جہاد ہے۔", tr: "En büyük cihad, kendi nefsine karşı verilen cihadtır." }, source: "Sahih Bukhari", narrator: "Prophet Muhammad", collection: "Spirituality" },
+  { id: 5, text: { en: "Whoever builds a masjid, Allah will build for him a house in Paradise.", ar: "من بنى مسجدا بنى الله له مثله في الجنة", bn: "যে মসজিদ নির্মাণ করে, আল্লাহ তার জন্য জান্নায় একটি ঘর নির্মাণ করবেন।", ur: "جو مسجد بنائے، اللہ اس کے لیے جنت میں ایک گھر بنائے گا۔", tr: "Kim bir camii inşa ederse, Allah ona cennette bir ev inşa edecektir." }, source: "Sahih Bukhari", narrator: "Prophet Muhammad", collection: "Good Deeds" },
+  { id: 6, text: { en: "Do not envy one another; do not hate one another; do not turn away from one another.", ar: "لا تحاسدوا ولا تباغضوا ولا تدابروا", bn: "একে অপরের প্রতি ঈর্ষা করবেন না; একে অপরকে ঘৃণা করবেন না।", ur: "ایک دوسرے سے حسد نہ کریں، ایک دوسرے سے نفرت نہ کریں۔", tr: "Birbirinize hased etmeyin, birbirinize karşı nefret etmeyin." }, source: "Sahih Bukhari", narrator: "Prophet Muhammad", collection: "Brotherhood" },
+  { id: 7, text: { en: "Cleanliness is half of faith.", ar: "الطهور شطر الإيمان", bn: "পবিত্রতা হল ঈমানের অর্ধেক।", ur: "صفائی ایمان کا آدھا حصہ ہے۔", tr: "Temizlik imanın yarısıdır." }, source: "Sahih Muslim", narrator: "Prophet Muhammad", collection: "Purity" },
+  { id: 8, text: { en: "The best among you are those who have the best manners and character.", ar: "خيركم أحسنكم أخلاقا", bn: "তোমাদের মধ্যে সেরা হল যাদের সেরা চরিত্র এবং আচরণ আছে।", ur: "تم میں سے بہترین وہ ہیں جن کا کردار سب سے اچھا ہے۔", tr: "Sizin en iyileriniz, ahlak ve davranışı en güzelerinizdir." }, source: "Tirmidhi", narrator: "Prophet Muhammad", collection: "Character" },
+  { id: 9, text: { en: "Seeking knowledge is obligatory for every Muslim.", ar: "طلب العلم فريضة على كل مسلم", bn: "জ্ঞান অনুসন্ধান করা প্রতিটি মুসলিমের জন্য বাধ্যতামূলক।", ur: "علم کی تلاش ہر مسلمان کے لیے لازمی ہے۔", tr: "Bilgi arayışı her Müslüman için zorunludur." }, source: "Ibn Majah", narrator: "Prophet Muhammad", collection: "Knowledge" },
+  { id: 10, text: { en: "Patience is the key to relief and success.", ar: "الصبر مفتاح الفرج", bn: "ধৈর্য হল মুক্তি এবং সাফল্যের চাবিকাঠি।", ur: "صبر کامیابی کی کلید ہے۔", tr: "Sabır başarının anahtarıdır." }, source: "Baihaqi", narrator: "Prophet Muhammad", collection: "Patience" },
+];
 
 const features = [
   { emoji: "📖", label: "Quran", path: "/quran", animation: "animate-page-flip" },
@@ -134,6 +157,15 @@ export default function Home() {
   };
 
   const formattedTime = getFormattedTime();
+
+  // Get daily hadith based on date
+  const getDailyHadith = (): HadithData => {
+    const today = new Date();
+    const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+    return hadiths[dayOfYear % hadiths.length];
+  };
+
+  const dailyHadith = getDailyHadith();
 
   // Get prayer icon
   const getPrayerIcon = (name: string) => {
@@ -362,6 +394,38 @@ export default function Home() {
                   </button>
                 )}
               </div>
+            </div>
+
+            {/* Today's Hadith Card */}
+            <div className="px-4 mb-4">
+              <Link href="/hadith">
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer border border-amber-100/50">
+                  {/* Header */}
+                  <div className="p-4 border-b border-amber-100/50 flex items-center gap-2">
+                    <BookOpen className="w-5 h-5 text-amber-600" />
+                    <h3 className="font-semibold text-amber-900">Today's Hadith</h3>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-4 space-y-3">
+                    {/* English Text */}
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {dailyHadith.text.en}
+                    </p>
+                    
+                    {/* Arabic Text */}
+                    <p className="text-amber-900 text-sm leading-relaxed text-right font-medium" style={{ direction: 'rtl' }}>
+                      {dailyHadith.text.ar}
+                    </p>
+                    
+                    {/* Source Info */}
+                    <div className="flex items-center justify-between pt-2 border-t border-amber-100/50">
+                      <span className="text-xs text-amber-700 font-medium">{dailyHadith.source}</span>
+                      <span className="text-xs text-amber-600">{dailyHadith.collection}</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
 
           </>
