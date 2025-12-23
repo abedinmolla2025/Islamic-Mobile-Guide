@@ -175,13 +175,14 @@
 [x] 10. SPLASH SCREEN NOW PREMIUM AND PROFESSIONAL ✓
 
 ## Prayer Times Display Optimization (December 23, 2025)
-[x] 1. Modified Prayer Times section to show ONLY the next prayer time
-[x] 2. Removed "Show More/Show Less" button toggle functionality
-[x] 3. Removed unused `showAllPrayers` state variable
+[x] 1. Modified Prayer Times section to show ONLY the next prayer time by default
+[x] 2. Added "Show More/Show Less" button toggle functionality for all prayers
+[x] 3. Re-added `showAllPrayers` state variable for toggling behavior
 [x] 4. Kept next prayer always highlighted with emerald background
 [x] 5. Prayer card displays: Prayer name, Next badge, and prayer time
-[x] 6. Verified changes with workflow restart
-[x] 7. PRAYER TIMES NOW SHOW ONLY NEXT PRAYER ✓
+[x] 6. Default view shows only next prayer, expandable to show all prayers
+[x] 7. Verified changes with workflow restart
+[x] 8. PRAYER TIMES NOW SHOW ONLY NEXT BY DEFAULT + EXPANDABLE ✓
 
 ## Project Status: PRODUCTION READY + ENHANCED
 - All major features implemented and tested
