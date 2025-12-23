@@ -26,7 +26,6 @@ export default function Home() {
   const [location, setLocation] = useState<{ city: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState({ hours: 0, minutes: 0, seconds: 0 });
-  const [showAllPrayers, setShowAllPrayers] = useState(false);
   const [celebration, setCelebration] = useState<Celebration | null>(null);
 
   useEffect(() => {
@@ -297,7 +296,7 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Prayer Times List */}
+            {/* Prayer Times List - Only Next Prayer */}
             <div className="px-4 mb-4">
               <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
                 <div className="p-4 border-b border-gray-100 flex items-center justify-between">
@@ -305,62 +304,29 @@ export default function Home() {
                   <span className="text-xs text-gray-500">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
                 </div>
                 <div className="divide-y divide-gray-100">
-                  {(showAllPrayers ? prayerTimes : prayerTimes.slice(0, 3)).map((prayer, idx) => (
+                  {prayerTimes.filter(prayer => prayer.isNext).map((prayer, idx) => (
                     <div 
                       key={idx}
                       data-testid={`prayer-${prayer.name.toLowerCase()}`}
-                      className={cn(
-                        "flex items-center justify-between px-4 py-3.5 transition-colors",
-                        prayer.isNext && "bg-emerald-50"
-                      )}
+                      className="flex items-center justify-between px-4 py-3.5 transition-colors bg-emerald-50"
                     >
                       <div className="flex items-center gap-3">
-                        <div className={cn(
-                          "w-9 h-9 rounded-xl flex items-center justify-center",
-                          prayer.isNext ? "bg-emerald-500 text-white" : "bg-gray-100 text-gray-500"
-                        )}>
+                        <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-emerald-500 text-white">
                           {getPrayerIcon(prayer.name)}
                         </div>
-                        <span className={cn(
-                          "font-medium",
-                          prayer.isNext ? "text-emerald-700" : "text-gray-700"
-                        )}>
+                        <span className="font-medium text-emerald-700">
                           {prayer.name}
                         </span>
-                        {prayer.isNext && (
-                          <span className="text-xs bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full font-medium">
-                            Next
-                          </span>
-                        )}
+                        <span className="text-xs bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full font-medium">
+                          Next
+                        </span>
                       </div>
-                      <span className={cn(
-                        "font-semibold tabular-nums",
-                        prayer.isNext ? "text-emerald-600" : "text-gray-600"
-                      )}>
+                      <span className="font-semibold tabular-nums text-emerald-600">
                         {prayer.time}
                       </span>
                     </div>
                   ))}
                 </div>
-                {prayerTimes.length > 3 && (
-                  <button
-                    onClick={() => setShowAllPrayers(!showAllPrayers)}
-                    data-testid="button-show-more-prayers"
-                    className="w-full py-3 flex items-center justify-center gap-2 text-emerald-600 font-medium text-sm border-t border-gray-100 hover:bg-gray-50 transition-colors"
-                  >
-                    {showAllPrayers ? (
-                      <>
-                        <span>Show Less</span>
-                        <ChevronUp className="w-4 h-4" />
-                      </>
-                    ) : (
-                      <>
-                        <span>Show More</span>
-                        <ChevronDown className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                )}
               </div>
             </div>
 
